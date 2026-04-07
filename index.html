@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DATA STORE</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(145deg, #000000, #1a1a1a);
+    font-family: 'Poppins', sans-serif;
+    color:white;
+}
+
+/* HEADER */
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    background: linear-gradient(90deg, rgba(2,12,27,0.95), rgba(10,25,47,0.95));
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(100,255,218,0.2);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-king { font-size: 18px; font-weight: 900; }
+
+.search-king {
+    flex: 0 0 45%;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.95);
+    border: 1px solid rgba(100,255,218,0.25);
+    color: white;
+    font-size: 12px;
+}
+
+.cart-box { position: relative; }
+
+.cart-icon {
+    font-size: 18px;
+    background: rgba(100,255,218,0.15);
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: red;
+    font-size: 9px;
+    padding: 2px 5px;
+    border-radius: 999px;
+}
+
+.spacer { height: 75px; }
+
+/* CARD */
+.card-king {
+    background: rgba(15,15,15,0.95);
+    border: 1px solid rgba(255,215,0,0.5);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.header-card { display:flex; justify-content:space-between; margin-bottom:8px; }
+.text-id { color:#FFD700; font-size:0.8rem; font-weight:bold; }
+.text-harga { color:#22c55e; font-size:0.8rem; font-weight:bold; }
+
+.baris-data {
+    display:flex;
+    justify-content:space-between;
+    padding:5px 0;
+    border-bottom:1px solid rgba(255,215,0,0.15);
+}
+
+.label-king { color:#FFD700; font-size:0.8rem; font-weight:600; }
+.value-king { color:#fff; font-size:0.8rem; font-weight:700; }
+
+.judul-alamat {
+    font-size:0.85rem;
+    color:#e2e8f0;
+    text-align:center;
+    margin:6px 0;
+    font-weight:700;
+}
+
+.info-bio {
+    text-align:center;
+    font-size:0.8rem;
+    color:#cbd5e1;
+    margin-bottom:8px;
+    background: rgba(255,215,0,0.08);
+    padding:6px;
+    border-radius:8px;
+}
+
+.btn-cart, .btn-wa {
+    width:100%;
+    margin-top:8px;
+    padding:6px;
+    border-radius:10px;
+    font-size:0.8rem;
+    font-weight:bold;
+}
+
+/* FOOTER NAV FLOATING */
+.footer-nav {
+    position: relative;
+    margin-top: 20px;
+    background: rgba(2,12,27,0.95);
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.footer-btn { padding: 10px; border-radius: 10px; }
+.page-info { flex: 1; text-align: center; }
+
+/* ===== KERANJANG ===== */
+#halamanKeranjang { display:none; }
+
+.header {
+    position:sticky;
+    top:0;
+    background: rgba(2,12,27,0.95);
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+}
+
+#list { padding-bottom:160px; }
+
+.footer {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    padding:12px 16px;
+}
+
+/* tombol diperkecil */
+.btn-checkout, .btn-back {
+    width:100%;
+    padding:12px;
+    font-size:13px;
+    border-radius:14px;
+}
+
+.btn-checkout {
+    background: linear-gradient(90deg,#22c55e,#16a34a);
+}
+
+.btn-back {
+    background: linear-gradient(90deg,#334155,#1e293b);
+}
+
+.checkout-box { display:none; padding:20px; }
+.checkout-card { background:#0f172a; padding:20px; border-radius:12px; }
+pre { white-space:pre-wrap; font-size:13px; }
+</style>
+</head>
+
+<body>
+
+<div id="halamanUtama">
+
+<div class="header-fixed">
+    <div class="header-container">
+        <div class="logo-king">🩴 STORE</div>
+        <input id="searchInput" placeholder="Cari..." onkeyup="cariData()" class="search-king">
+
+        <div class="cart-box" onclick="bukaKeranjang()">
+            <div class="cart-icon">🛒</div>
+            <div id="cartCount" class="cart-badge">0</div>
+        </div>
+    </div>
+</div>
+
+<div class="spacer"></div>
+<div id="listData" class="p-4"></div>
+
+<div class="footer-nav">
+    <button onclick="prevPage()" class="footer-btn bg-gray-700 text-white">⬅</button>
+    <div id="pageInfo" class="page-info">Page 1 - 1995</div>
+    <button onclick="nextPage()" class="footer-btn bg-green-600 text-white">➡</button>
+</div>
+
+</div>
+
+<!-- KERANJANG -->
+<div id="halamanKeranjang">
+
+<div class="header">
+    <div style="font-weight:bold;color:#FFD700;">🛒 Keranjang Saya</div>
+    <div style="font-size:12px;color:#22c55e;font-weight:bold;">
+        <span id="jumlah">0</span> Item • Rp <span id="total">0</span>
+    </div>
+</div>
+
+<div id="list"></div>
+
+<div id="checkoutBox" class="checkout-box">
+    <div class="checkout-card">
+        <pre id="text"></pre>
+
+        <button onclick="kirimWA()" class="btn-checkout mt-4">
+            📲 Kirim ke WhatsApp
+        </button>
+
+        <button onclick="kembali()" class="btn-back mt-2">
+            ⬅ Kembali
+        </button>
+    </div>
+</div>
+
+<div class="footer" id="footer">
+    <button onclick="showCheckout()" class="btn-checkout">
+        📲 Checkout WhatsApp
+    </button>
+
+    <button onclick="tutupKeranjang()" class="btn-back">
+        ⬅ Kembali Belanja
+    </button>
+</div>
+
+</div>
+
+<script>
+const SHEET_ID='1JZYRfmxUO4iuneGHbMSgB8MQ9vF-4t0uF2lmFxyFjXU';
+const API_KEY='AIzaSyA9CfUZMYXL8Iga68KBJxZnAkifWBcKEGI';
+const RANGE='Sheet1!A2:P';
+
+let dataSemua=[];
+let dataFilter=[];
+let keranjang=JSON.parse(localStorage.getItem('cart'))||[];
+let textGlobal="";
+
+let currentPage = 1;
+const limit = 50;
+
+window.onload=async()=>{
+    const res=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`);
+    const json=await res.json();
+
+    dataSemua=json.values||[];
+    dataFilter=dataSemua;
+
+    tampilkan();
+    updateCartCount();
+};
+
+/* PAGINATION FIX + SCROLL */
+function nextPage(){
+    if(currentPage * limit < dataFilter.length){
+        currentPage++;
+        tampilkan();
+        window.scrollTo({top:0,behavior:"smooth"});
+    }
+}
+
+function prevPage(){
+    if(currentPage > 1){
+        currentPage--;
+        tampilkan();
+        window.scrollTo({top:0,behavior:"smooth"});
+    }
+}
+
+function cleanNumber(x){
+    return Number(String(x||0).replace(/[^0-9]/g,''))||0;
+}
+
+function format(x){
+    return new Intl.NumberFormat('id-ID').format(cleanNumber(x));
+}
+
+function tampilkan(){
+    listData.innerHTML='';
+    const start=(currentPage-1)*limit;
+    const pageData=dataFilter.slice(start,start+limit);
+
+    pageData.forEach(r=>{
+        const id=r[0];
+        const sudah=keranjang.includes(id);
+
+        listData.innerHTML+=`
+        <div class="card-king">
+            <div class="header-card">
+                <span class="text-id">ID: ${r[0]}</span>
+                <span class="text-harga">LEPAS: Rp ${format(r[14])}</span>
+            </div>
+
+            <div class="judul-alamat">
+                📍 ${r[6]} • ${r[7]} • ${r[8]}
+            </div>
+
+            <div class="info-bio">
+                NIK: ${r[2]} | LAHIR: ${r[4]} | ${r[5]}
+            </div>
+
+            <div class="baris-data"><div class="label-king">KPJ</div><div class="value-king">${r[1]}</div></div>
+            <div class="baris-data"><div class="label-king">PT</div><div class="value-king">${r[11]}</div></div>
+            <div class="baris-data"><div class="label-king">SALDO AWAL</div><div class="value-king">Rp ${format(r[10])}</div></div>
+            <div class="baris-data"><div class="label-king">IURAN TERAHIR</div><div class="value-king">${r[12]}</div></div>
+            <div class="baris-data"><div class="label-king">SENSOR</div><div class="value-king">${r[13]}</div></div>
+            <div class="baris-data"><div class="label-king">TOTAL SALDO</div><div class="value-king text-green-400">Rp ${format(r[9])}</div></div>
+
+            <button onclick="toggleCart('${id}')" class="btn-cart ${sudah?'bg-gray-400 text-black':'bg-green-600'}">
+                ${sudah?'✔ SUDAH DIKERANJANG':'🛒 TAMBAH KE KERANJANG'}
+            </button>
+
+            <button onclick="kirimSatu('${id}')" class="btn-wa bg-blue-600">
+                📲 KIRIM WA
+            </button>
+        </div>`;
+    });
+
+    document.getElementById("pageInfo").innerText = "Page " + currentPage + " - 1995";
+}
+
+function toggleCart(id){
+    const i=keranjang.indexOf(id);
+    if(i===-1) keranjang.push(id);
+    else keranjang.splice(i,1);
+
+    localStorage.setItem('cart',JSON.stringify(keranjang));
+    updateCartCount();
+    tampilkan();
+}
+
+function updateCartCount(){
+    document.getElementById("cartCount").innerText=keranjang.length;
+}
+
+function bukaKeranjang(){
+    halamanUtama.style.display="none";
+    halamanKeranjang.style.display="block";
+    render();
+}
+
+function tutupKeranjang(){
+    halamanUtama.style.display="block";
+    halamanKeranjang.style.display="none";
+}
+
+function render(){
+    list.innerHTML="";
+    let total=0;
+
+    keranjang.forEach(id=>{
+        const r=dataSemua.find(x=>x[0]==id);
+        if(!r)return;
+
+        total+=cleanNumber(r[14]);
+
+        list.innerHTML+=`
+        <div class="card-king">
+            <div class="header-card">
+                <span class="text-id">ID: ${r[0]}</span>
+                <span class="text-harga">LEPAS: Rp ${format(r[14])}</span>
+            </div>
+
+            <div class="judul-alamat">
+                📍 ${r[6]} • ${r[7]} • ${r[8]}
+            </div>
+
+            <div class="info-bio">
+                NIK: ${r[2]} | LAHIR: ${r[4]} | ${r[5]}
+            </div>
+
+            <div class="baris-data"><div class="label-king">KPJ</div><div class="value-king">${r[1]}</div></div>
+            <div class="baris-data"><div class="label-king">PT</div><div class="value-king">${r[11]}</div></div>
+            <div class="baris-data"><div class="label-king">SALDO AWAL</div><div class="value-king">Rp ${format(r[10])}</div></div>
+            <div class="baris-data"><div class="label-king">IURAN TERAHIR</div><div class="value-king">${r[12]}</div></div>
+            <div class="baris-data"><div class="label-king">SENSOR</div><div class="value-king">${r[13]}</div></div>
+            <div class="baris-data"><div class="label-king">TOTAL SALDO</div><div class="value-king text-green-400">Rp ${format(r[9])}</div></div>
+
+            <button onclick="hapus('${id}')" class="btn-cart bg-red-600">
+                🗑 HAPUS DARI KERANJANG
+            </button>
+        </div>`;
+    });
+
+    jumlah.innerText=keranjang.length;
+    document.getElementById("total").innerText=format(total);
+}
+
+/* CHECKOUT tetap */
+function showCheckout(){
+    list.style.display="none";
+    footer.style.display="none";
+    checkoutBox.style.display="block";
+
+    let text="";
+    let total=0;
+
+    keranjang.forEach((id,i)=>{
+        const r=dataSemua.find(x=>x[0]==id);
+        if(!r)return;
+
+        total+=cleanNumber(r[14]);
+
+        text += `🩴🩴🩴${i+1}. ${r[0]} 🩴🩴🩴\n\n`;
+        text += `${r[6]}\n`;
+        text += `${r[7]}\n`;
+        text += `${r[8]}\n\n`;
+        text += `NIK  : ${r[2]} | ${r[4]} | ${r[5]}\n`;
+        text += `PT. ${r[11]}\n`;
+        text += `IURAN TERAKHIR : ${r[12]}\n`;
+        text += `SALDO AWAL     : Rp ${format(r[10])}\n\n`;
+        text += `SENSOR         : ${r[13]}\n`;
+        text += `TOTAL SALDO    : Rp ${format(r[9])}\n\n`;
+        text += `==== JUAL LEPAS : Rp ${format(r[14])} =====\n\n\n`;
+    });
+
+    text += `=============================\n`;
+    text += `TOTAL BAYAR : Rp ${format(total)}\n`;
+
+    textGlobal="```\n"+text+"\n```";
+    document.getElementById("text").innerText=text;
+}
+
+function kirimWA(){
+    window.open(`https://wa.me/6282221559338?text=${encodeURIComponent(textGlobal)}`);
+}
+
+function kembali(){
+    checkoutBox.style.display="none";
+    list.style.display="block";
+    footer.style.display="block";
+}
+
+function hapus(id){
+    keranjang=keranjang.filter(x=>x!=id);
+    localStorage.setItem('cart',JSON.stringify(keranjang));
+    render();
+    updateCartCount();
+}
+
+function kirimSatu(id){
+    const r=dataSemua.find(x=>x[0]==id);
+    if(!r)return;
+
+    let text="";
+
+    text += `🩴🩴🩴 ${r[0]} 🩴🩴🩴\n\n`;
+    text += `${r[6]}\n`;
+    text += `${r[7]}\n`;
+    text += `${r[8]}\n\n`;
+    text += `NIK  : ${r[2]} | ${r[4]} | ${r[5]}\n`;
+    text += `PT. ${r[11]}\n`;
+    text += `IURAN TERAKHIR : ${r[12]}\n`;
+    text += `SALDO AWAL     : Rp ${format(r[10])}\n\n`;
+    text += `SENSOR         : ${r[13]}\n`;
+    text += `TOTAL SALDO    : Rp ${format(r[9])}\n\n`;
+    text += `==== JUAL LEPAS: Rp ${format(r[14])} =====\n`;
+
+    const pesan="```\n"+text+"\n```";
+
+    window.open(`https://wa.me/6282221559338?text=${encodeURIComponent(pesan)}`);
+}
+</script>
+
+</body>
+</html>
