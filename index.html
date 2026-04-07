@@ -26,23 +26,24 @@ body {
     background: linear-gradient(90deg, rgba(2,12,27,0.95), rgba(10,25,47,0.95));
     padding: 10px 12px;
     border-bottom: 1px solid rgba(100,255,218,0.2);
-    
+}
+
 .header-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-.logo-king {
-    font-size: 14px;
-    font-weight: 900;
-    flex: 0 0 auto;
-    white-space: nowrap;
-}
+.logo-king { font-size: 18px; font-weight: 900; }
 
 .search-king {
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 45%;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.95);
+    border: 1px solid rgba(100,255,218,0.25);
+    color: white;
+    font-size: 12px;
 }
 
 .cart-box { position: relative; }
@@ -181,7 +182,7 @@ pre { white-space:pre-wrap; font-size:13px; }
 <div class="header-fixed">
     <div class="header-container">
         <div class="logo-king">🩴 STORE</div>
-        <input id="searchInput" placeholder="kabupaten/kecamatan" onkeyup="cariData()" class="search-king">
+        <input id="searchInput" placeholder="Cari..." onkeyup="cariData()" class="search-king">
 
         <div class="cart-box" onclick="bukaKeranjang()">
             <div class="cart-icon">🛒</div>
@@ -473,8 +474,7 @@ function kirimSatu(id){
 
     window.open(`https://wa.me/6282221559338?text=${encodeURIComponent(pesan)}`);
 }
-
-    /* 🔥 SEARCH REALTIME LOKASI */
+/* 🔥 SEARCH REALTIME LOKASI */
 let timer;
 
 function cariData(){
@@ -500,6 +500,7 @@ function cariData(){
 
     },200);
 }
+    
 </script>
 
 </body>
