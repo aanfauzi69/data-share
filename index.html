@@ -474,6 +474,33 @@ function kirimSatu(id){
 
     window.open(`https://wa.me/6282221559338?text=${encodeURIComponent(pesan)}`);
 }
+
+    /* 🔥 SEARCH REALTIME LOKASI */
+let timer;
+
+function cariData(){
+    clearTimeout(timer);
+
+    timer = setTimeout(()=>{
+        const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+        dataFilter = dataSemua.filter(r=>{
+            const kab = (r[6] || "").toLowerCase();
+            const kec = (r[7] || "").toLowerCase();
+            const kel = (r[8] || "").toLowerCase();
+
+            return (
+                kab.includes(keyword) ||
+                kec.includes(keyword) ||
+                kel.includes(keyword)
+            );
+        });
+
+        currentPage = 1;
+        tampilkan();
+
+    },200);
+}
 </script>
 
 </body>
