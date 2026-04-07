@@ -26,24 +26,23 @@ body {
     background: linear-gradient(90deg, rgba(2,12,27,0.95), rgba(10,25,47,0.95));
     padding: 10px 12px;
     border-bottom: 1px solid rgba(100,255,218,0.2);
-}
-
+    
 .header-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-.logo-king { font-size: 18px; font-weight: 900; }
+.logo-king {
+    font-size: 14px;
+    font-weight: 900;
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
 
 .search-king {
-    flex: 0 0 45%;
-    padding: 9px 14px;
-    border-radius: 999px;
-    background: rgba(15,23,42,0.95);
-    border: 1px solid rgba(100,255,218,0.25);
-    color: white;
-    font-size: 12px;
+    flex: 1;
+    min-width: 0;
 }
 
 .cart-box { position: relative; }
