@@ -15,39 +15,29 @@ body {
     color:white;
 }
 
-/* HEADER */
-.header-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 50;
-    backdrop-filter: blur(12px);
-    background: linear-gradient(90deg, rgba(2,12,27,0.95), rgba(10,25,47,0.95));
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(100,255,218,0.2);
-}
-
 .header-container {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.logo-king { font-size: 18px; font-weight: 900; }
-
-.search-king {
-    flex: 0 0 45%;
-    padding: 9px 14px;
-    border-radius: 999px;
-    background: rgba(15,23,42,0.95);
-    border: 1px solid rgba(100,255,218,0.25);
-    color: white;
-    font-size: 12px;
+/* LOGO */
+.logo-king {
+    font-size: 14px;
+    font-weight: 900;
+    flex: none; /* 🔒 kunci */
 }
 
-.cart-box { position: relative; }
+/* SEARCH */
+.search-king {
+    flex: 1; /* isi tengah */
+    min-width: 0;
+}
 
+/* CART */
+.cart-box {
+    flex: none; /* 🔒 kunci */
+}
 .cart-icon {
     font-size: 18px;
     background: rgba(100,255,218,0.15);
