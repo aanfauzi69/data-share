@@ -317,7 +317,7 @@ function tampilkan(){
             <div class="baris-data"><div class="label-king">PT</div><div class="value-king">${r[11]}</div></div>
             <div class="baris-data"><div class="label-king">SALDO AWAL</div><div class="value-king">Rp ${format(r[10])}</div></div>
             <div class="baris-data"><div class="label-king">IURAN TERAHIR</div><div class="value-king">${r[12]}</div></div>
-            <div class="baris-data"><div class="label-king">SENSOR</div><div class="value-king">${r[13]}</div></div>
+            <div class="baris-data"><div class="label-king">JUMLAH KARTU</div><div class="value-king">${r[13]}</div></div>
             <div class="baris-data"><div class="label-king">TOTAL SALDO</div><div class="value-king text-green-400">Rp ${format(r[9])}</div></div>
 
             <button onclick="toggleCart('${id}')" class="btn-cart ${sudah?'bg-gray-400 text-black':'bg-green-600'}">
@@ -387,7 +387,7 @@ function render(){
             <div class="baris-data"><div class="label-king">PT</div><div class="value-king">${r[11]}</div></div>
             <div class="baris-data"><div class="label-king">SALDO AWAL</div><div class="value-king">Rp ${format(r[10])}</div></div>
             <div class="baris-data"><div class="label-king">IURAN TERAHIR</div><div class="value-king">${r[12]}</div></div>
-            <div class="baris-data"><div class="label-king">SENSOR</div><div class="value-king">${r[13]}</div></div>
+            <div class="baris-data"><div class="label-king">JUMLAH KARTU</div><div class="value-king">${r[13]}</div></div>
             <div class="baris-data"><div class="label-king">TOTAL SALDO</div><div class="value-king text-green-400">Rp ${format(r[9])}</div></div>
 
             <button onclick="hapus('${id}')" class="btn-cart bg-red-600">
@@ -423,7 +423,7 @@ function showCheckout(){
         text += `PT. ${r[11]}\n`;
         text += `IURAN TERAKHIR : ${r[12]}\n`;
         text += `SALDO AWAL     : Rp ${format(r[10])}\n\n`;
-        text += `SENSOR         : ${r[13]}\n`;
+        text += `JUMLAH KARTU   : ${r[13]}\n`;
         text += `TOTAL SALDO    : Rp ${format(r[9])}\n\n`;
         text += `==== JUAL LEPAS : Rp ${format(r[14])} =====\n\n\n`;
     });
