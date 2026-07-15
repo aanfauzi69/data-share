@@ -663,7 +663,84 @@ function tampilIsiKeranjang() {
             <div class="baris-data">
                 <div class="label">KPJ</div>
                 <div class="titik">:</div>
-                <div clasi">${kpj}</div>|'-'}
+                <div class="nilai">${kpj}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">PT</div>
+                <div class="titik">:</div>
+                <div class="nilai">${b[11]||'-'}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Saldo Awal</div>
+                <div class="titik">:</div>
+                <div class="nilai">Rp ${uang(b[10])}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Iuran Terakhir</div>
+                <div class="titik">:</div>
+                <div class="nilai">${b[12]||'-'}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Sensor</div>
+                <div class="titik">:</div>
+                <div class="nilai">${b[13]||'-'}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Total Saldo</div>
+                <div class="titik">:</div>
+                <div class="nilai hijau">Rp ${uang(b[9])}</div>
+            </div>
+            
+            <div class="card-footer">
+                <div class="harga-lepas">HARGA: Rp ${uang(b[14])}</div>
+                <button class="btn-hapus-item" onclick="hapusSatuItem('${id}')">🗑️ Hapus</button>
+            </div>
+        </div>`;
+    });
+    totalRp.textContent = `Rp ${uang(total)}`;
+}
+
+function hapusSatuItem(id) {
+    keranjang = keranjang.filter(i => i !== id);
+    localStorage.setItem('keranjang', JSON.stringify(keranjang));
+    updateJumlahKeranjang();
+    tampilIsiKeranjang();
+}
+
+function konfirmasiKosong() {
+    if(confirm('Yakin ingin mengosongkan seluruh isi keranjang?')) {
+        keranjang=[]; localStorage.removeItem('keranjang'); updateJumlahKeranjang(); tampilIsiKeranjang();
+    }
+}
+
+function munculSyarat() {
+    if(keranjang.length===0) { alert('Keranjang masih kosong!'); return; }
+    modalSyarat.style.display='flex'; setujuSyarat.checked=false; cekTombolLanjut();
+}
+function tutupSyarat() { modalSyarat.style.display='none'; }
+function cekTombolLanjut() { btnLanjutKirim.disabled = !setujuSyarat.checked; }
+function lanjutKirimWA() {
+    tutupSyarat();
+    let teks = '';
+    let total = 0;
+
+    keranjang.forEach((id, nomor) => {
+        const b = dataSemua.find(x => x[0] == id);
+        if (!b) return;
+        total += angka(b[14]);
+
+        const tglLahir = b[4] || '-';
+        const jenisKelamin = b[5] || '';
+        const tampilTglLahir = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
+
+        teks += `🩴🩴🩴${nomor+1}. ${b[0]||'-'} 🩴🩴🩴
+
+${b[6]||'-'}
+${b[7]||'-'}
+${b[8]||'-'}
+
+NIK  : ${b[2]||'-'} | ${tampilTglLahir}
+KPJ. : ${b[1]||'-'}
 PT. : ${b[11]||'-'}
 IURAN TERAKHIR : ${b[12]||'-'}
 SALDO AWAL     : Rp ${uang(b[10])}
