@@ -6,97 +6,173 @@
     <title>OPEN REGIS NON VERMUK</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
-        body {background: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;}
-        .kotak-form {background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 480px;}
-        h2 {text-align: center; color: #166534; margin-bottom: 25px; font-size: 22px;}
-        .grup-input {margin-bottom: 18px;}
-        label {display: block; margin-bottom: 6px; color: #374151; font-weight: 600;}
+        body {background: #f0f4f8; padding: 20px;}
+        .wadah {max-width: 700px; margin: 0 auto;}
+        .kotak-form {background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px;}
+        h2 {text-align: center; color: #166534; margin-bottom: 20px; font-size: 20px;}
+        .grup-input {margin-bottom: 15px;}
+        label {display: block; margin-bottom: 5px; color: #374151; font-weight: 600;}
         .ket {font-size: 12px; color: #ef4444; margin-top: 2px;}
-        input {width: 100%; padding: 11px 13px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px;}
+        input {width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px;}
         input:focus {outline: none; border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15);}
-        button {width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer;}
-        button:hover {background: #059669;}
-        .pesan {margin-top: 15px; padding: 12px; border-radius: 8px; text-align: center; display: none;}
+        .tombol-baris {display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;}
+        button {padding: 11px 16px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1; min-width: 140px;}
+        .btn-tambah {background: #10b981; color: white;}
+        .btn-tambah:hover {background: #059669;}
+        .btn-unduh {background: #2563eb; color: white;}
+        .btn-unduh:hover {background: #1d4ed8;}
+        .btn-kosong {background: #ef4444; color: white;}
+        .btn-kosong:hover {background: #dc2626;}
+        .daftar-data {background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+        table {width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px;}
+        th, td {border: 1px solid #e5e7eb; padding: 8px; text-align: left;}
+        th {background: #f9fafb; font-weight: 700;}
+        .pesan {margin-top: 12px; padding: 10px; border-radius: 8px; text-align: center; display: none; font-size: 14px;}
         .sukses {background: #ecfdf5; color: #065f46; display: block;}
         .gagal {background: #fef2f2; color: #b91c1c; display: block;}
     </style>
 </head>
 <body>
+<div class="wadah">
     <div class="kotak-form">
-        <h2>OPEN REGIS NON VERMUK</h2>
-        <form id="formDaftar">
-            <div class="grup-input">
-                <label>1. NIK</label>
-                <input type="text" id="nik" maxlength="16" inputmode="numeric" required>
-                <div class="ket">⚠️ Wajib 16 Digit Angka</div>
-            </div>
-            <div class="grup-input">
-                <label>2. NAMA LENGKAP</label>
-                <input type="text" id="nama" required>
-            </div>
-            <div class="grup-input">
-                <label>3. TANGGAL LAHIR</label>
-                <input type="date" id="tglLahir" required>
-            </div>
-            <div class="grup-input">
-                <label>4. KPJ</label>
-                <input type="text" id="kpj" maxlength="11" inputmode="numeric" required>
-                <div class="ket">⚠️ Wajib 11 Digit Angka</div>
-            </div>
-            <div class="grup-input">
-                <label>5. NAMA KAMU</label>
-                <input type="text" id="namaKamu" required>
-            </div>
-            <div class="grup-input">
-                <label>6. NO WA KAMU</label>
-                <input type="tel" id="noWa" required>
-            </div>
-            <button type="submit">KIRIM PENDAFTARAN</button>
-            <div id="pesanInfo" class="pesan"></div>
-        </form>
+        <h2>FORMULIR REGIS NON VERMUK</h2>
+        <div class="grup-input">
+            <label>1. NIK</label>
+            <input type="text" id="nik" maxlength="16" inputmode="numeric" placeholder="Ketik atau Copy-Paste 16 digit">
+            <div class="ket">⚠️ Wajib 16 Digit Angka</div>
+        </div>
+        <div class="grup-input">
+            <label>2. NAMA LENGKAP</label>
+            <input type="text" id="nama" placeholder="Ketik atau Copy-Paste">
+        </div>
+        <div class="grup-input">
+            <label>3. TANGGAL LAHIR</label>
+            <input type="text" id="tglLahir" placeholder="Contoh: 25-08-1990 / 25081990 (Bisa Copy-Paste)">
+        </div>
+        <div class="grup-input">
+            <label>4. KPJ</label>
+            <input type="text" id="kpj" maxlength="11" inputmode="numeric" placeholder="Ketik atau Copy-Paste 11 digit">
+            <div class="ket">⚠️ Wajib 11 Digit Angka</div>
+        </div>
+
+        <div class="tombol-baris">
+            <button type="button" class="btn-tambah" onclick="tambahData()">➕ TAMBAH DATA</button>
+            <button type="button" class="btn-unduh" onclick="unduhDanKirim()">📤 UNDUH / KIRIM WA</button>
+            <button type="button" class="btn-kosong" onclick="kosongkanSemua()">🗑️ KOSONGKAN</button>
+        </div>
+        <div id="pesanInfo" class="pesan"></div>
     </div>
-    <script>
-        // === GANTI DENGAN LINK BARU HASIL SEBAR KAMU ===
-        const LINK_SHEET = "https://script.google.com/macros/s/ISI_LINK_BARU_KAMU_DISINI/exec";
 
-        const form = document.getElementById('formDaftar');
-        const pesan = document.getElementById('pesanInfo');
+    <div class="daftar-data">
+        <h3>DAFTAR DATA YANG SUDAH DITAMBAHKAN</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIK</th>
+                    <th>NAMA</th>
+                    <th>TGL LAHIR</th>
+                    <th>KPJ</th>
+                </tr>
+            </thead>
+            <tbody id="isiTabel"></tbody>
+        </table>
+    </div>
+</div>
 
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
-            pesan.style.display = 'none';
+<script>
+let daftarData = [];
+const pesan = document.getElementById('pesanInfo');
 
-            const nikVal = document.getElementById('nik').value.trim();
-            const kpjVal = document.getElementById('kpj').value.trim();
+function tampilPesan(jenis, teks) {
+    pesan.className = `pesan ${jenis}`;
+    pesan.innerText = teks;
+    setTimeout(() => pesan.style.display = 'none', 3000);
+}
 
-            if (nikVal.length !== 16) {
-                pesan.className = "pesan gagal";
-                pesan.innerText = "❌ NIK HARUS 16 DIGIT!";
-                return;
-            }
-            if (kpjVal.length !== 11) {
-                pesan.className = "pesan gagal";
-                pesan.innerText = "❌ KPJ HARUS 11 DIGIT!";
-                return;
-            }
+function tambahData() {
+    pesan.style.display = 'none';
+    const nik = document.getElementById('nik').value.trim();
+    const nama = document.getElementById('nama').value.trim();
+    const tglLahir = document.getElementById('tglLahir').value.trim();
+    const kpj = document.getElementById('kpj').value.trim();
 
-            const data = {
-                nik: nikVal, nama: document.getElementById('nama').value.trim(),
-                tglLahir: document.getElementById('tglLahir').value, kpj: kpjVal,
-                namaKamu: document.getElementById('namaKamu').value.trim(),
-                noWa: document.getElementById('noWa').value.trim()
-            };
+    if(!nik || !nama || !tglLahir || !kpj) {
+        tampilPesan('gagal', '❌ SEMUA KOLOM WAJIB DIISI!');
+        return;
+    }
+    if(nik.length !== 16) {
+        tampilPesan('gagal', '❌ NIK HARUS 16 DIGIT!');
+        return;
+    }
+    if(kpj.length !== 11) {
+        tampilPesan('gagal', '❌ KPJ HARUS 11 DIGIT!');
+        return;
+    }
 
-            try {
-                await fetch(LINK_SHEET, {method: "POST", mode: "no-cors", headers: {"Content-Type":"application/json"}, body: JSON.stringify(data)});
-                pesan.className = "pesan sukses";
-                pesan.innerText = "✅ BERHASIL! Cek Sheet REGIS";
-                form.reset();
-            } catch {
-                pesan.className = "pesan gagal";
-                pesan.innerText = "❌ GAGAL! Cek link & izin";
-            }
-        });
-    </script>
+    daftarData.push({nik, nama, tglLahir, kpj});
+    perbaruiTabel();
+    document.getElementById('nik').value = '';
+    document.getElementById('nama').value = '';
+    document.getElementById('tglLahir').value = '';
+    document.getElementById('kpj').value = '';
+    tampilPesan('sukses', '✅ DATA BERHASIL DITAMBAHKAN!');
+}
+
+function perbaruiTabel() {
+    const tbody = document.getElementById('isiTabel');
+    tbody.innerHTML = '';
+    daftarData.forEach((d, i) => {
+        const baris = `<tr>
+            <td>${i+1}</td>
+            <td>${d.nik}</td>
+            <td>${d.nama}</td>
+            <td>${d.tglLahir}</td>
+            <td>${d.kpj}</td>
+        </tr>`;
+        tbody.innerHTML += baris;
+    });
+}
+
+function unduhDanKirim() {
+    if(daftarData.length === 0) {
+        tampilPesan('gagal', '❌ BELUM ADA DATA YANG DITAMBAHKAN!');
+        return;
+    }
+
+    // Buat file CSV
+    let isiCSV = 'NIK,NAMA,TANGGAL LAHIR,KPJ\n';
+    daftarData.forEach(d => {
+        isiCSV += `${d.nik},"${d.nama}",${d.tglLahir},${d.kpj}\n`;
+    });
+    const blob = new Blob([isiCSV], {type: 'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `DATA_REGIS_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Siapkan teks untuk dikirim ke WA
+    let teksWA = "📋 DATA REGIS NON VERMUK\n\n";
+    daftarData.forEach((d, i) => {
+        teksWA += `${i+1}. NIK: ${d.nik}\n   NAMA: ${d.nama}\n   TGL LAHIR: ${d.tglLahir}\n   KPJ: ${d.kpj}\n\n`;
+    });
+
+    // Buka WhatsApp otomatis
+    const linkWA = `https://wa.me/?text=${encodeURIComponent(teksWA)}`;
+    window.open(linkWA, '_blank');
+
+    tampilPesan('sukses', '✅ FILE DIUNDUH & WA DIBUKA!');
+}
+
+function kosongkanSemua() {
+    if(confirm('Yakin mau hapus semua data?')) {
+        daftarData = [];
+        perbaruiTabel();
+        tampilPesan('sukses', '✅ SEMUA DATA SUDAH DIKOSONGKAN');
+    }
+}
+</script>
 </body>
 </html>
