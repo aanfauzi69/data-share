@@ -5,85 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OPEN REGIS NON VERMUK</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .kotak-form {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 480px;
-        }
-        h2 {
-            text-align: center;
-            color: #166534;
-            margin-bottom: 25px;
-            font-weight: bold;
-            font-size: 22px;
-        }
-        .grup-input {
-            margin-bottom: 18px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            color: #374151;
-            font-weight: 600;
-        }
-        .keterangan {
-            font-size: 12px;
-            color: #ef4444;
-            margin-top: 2px;
-        }
-        input {
-            width: 100%;
-            padding: 11px 13px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-        input:focus {
-            outline: none;
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #059669;
-        }
-        .pesan {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            display: none;
-        }
-        .sukses { background: #ecfdf5; color: #065f46; display:block; }
-        .gagal { background: #fef2f2; color: #b91c1c; display:block; }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+        body {background: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;}
+        .kotak-form {background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 480px;}
+        h2 {text-align: center; color: #166534; margin-bottom: 25px; font-size: 22px;}
+        .grup-input {margin-bottom: 18px;}
+        label {display: block; margin-bottom: 6px; color: #374151; font-weight: 600;}
+        .ket {font-size: 12px; color: #ef4444; margin-top: 2px;}
+        input {width: 100%; padding: 11px 13px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px;}
+        input:focus {outline: none; border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15);}
+        button {width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer;}
+        button:hover {background: #059669;}
+        .pesan {margin-top: 15px; padding: 12px; border-radius: 8px; text-align: center; display: none;}
+        .sukses {background: #ecfdf5; color: #065f46; display: block;}
+        .gagal {background: #fef2f2; color: #b91c1c; display: block;}
     </style>
 </head>
 <body>
@@ -93,7 +28,7 @@
             <div class="grup-input">
                 <label>1. NIK</label>
                 <input type="text" id="nik" maxlength="16" inputmode="numeric" required>
-                <div class="keterangan">⚠️ Wajib 16 Digit Angka</div>
+                <div class="ket">⚠️ Wajib 16 Digit Angka</div>
             </div>
             <div class="grup-input">
                 <label>2. NAMA LENGKAP</label>
@@ -106,7 +41,7 @@
             <div class="grup-input">
                 <label>4. KPJ</label>
                 <input type="text" id="kpj" maxlength="11" inputmode="numeric" required>
-                <div class="keterangan">⚠️ Wajib 11 Digit Angka</div>
+                <div class="ket">⚠️ Wajib 11 Digit Angka</div>
             </div>
             <div class="grup-input">
                 <label>5. NAMA KAMU</label>
@@ -116,27 +51,24 @@
                 <label>6. NO WA KAMU</label>
                 <input type="tel" id="noWa" required>
             </div>
-
             <button type="submit">KIRIM PENDAFTARAN</button>
             <div id="pesanInfo" class="pesan"></div>
         </form>
     </div>
-
     <script>
-        // GANTI DENGAN LINK APPS SCRIPT MILIKMU
-        const LINK_SHEET = "https://script.google.com/macros/s/ISI_LINK_KAMU_DISINI/exec";
+        // === GANTI DENGAN LINK BARU HASIL SEBAR KAMU ===
+        const LINK_SHEET = "https://script.google.com/macros/s/ISI_LINK_BARU_KAMU_DISINI/exec";
 
         const form = document.getElementById('formDaftar');
         const pesan = document.getElementById('pesanInfo');
 
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
             pesan.style.display = 'none';
 
             const nikVal = document.getElementById('nik').value.trim();
             const kpjVal = document.getElementById('kpj').value.trim();
 
-            // VALIDASI JUMLAH DIGIT
             if (nikVal.length !== 16) {
                 pesan.className = "pesan gagal";
                 pesan.innerText = "❌ NIK HARUS 16 DIGIT!";
@@ -149,27 +81,20 @@
             }
 
             const data = {
-                nik: nikVal,
-                nama: document.getElementById('nama').value.trim(),
-                tglLahir: document.getElementById('tglLahir').value,
-                kpj: kpjVal,
+                nik: nikVal, nama: document.getElementById('nama').value.trim(),
+                tglLahir: document.getElementById('tglLahir').value, kpj: kpjVal,
                 namaKamu: document.getElementById('namaKamu').value.trim(),
                 noWa: document.getElementById('noWa').value.trim()
             };
 
             try {
-                await fetch(LINK_SHEET, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
+                await fetch(LINK_SHEET, {method: "POST", mode: "no-cors", headers: {"Content-Type":"application/json"}, body: JSON.stringify(data)});
                 pesan.className = "pesan sukses";
-                pesan.innerText = "✅ BERHASIL! Data sudah masuk ke Sheet REGIS";
+                pesan.innerText = "✅ BERHASIL! Cek Sheet REGIS";
                 form.reset();
             } catch {
                 pesan.className = "pesan gagal";
-                pesan.innerText = "❌ Gagal! Cek koneksi atau link";
+                pesan.innerText = "❌ GAGAL! Cek link & izin";
             }
         });
     </script>
