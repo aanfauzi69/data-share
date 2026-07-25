@@ -15,15 +15,15 @@
         .ket {font-size: 12px; color: #ef4444; margin-top: 2px;}
         input {width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px;}
         input:focus {outline: none; border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15);}
-        .tombol-baris {display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;}
-        button {padding: 11px 16px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1; min-width: 140px;}
-        .btn-tambah {background: #10b981; color: white;}
-        .btn-tambah:hover {background: #059669;}
-        .btn-unduh {background: #2563eb; color: white;}
-        .btn-unduh:hover {background: #1d4ed8;}
-        .btn-kosong {background: #ef4444; color: white;}
-        .btn-kosong:hover {background: #dc2626;}
+        .tombol-tambah {width: 100%; padding: 11px; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: 5px;}
+        .tombol-tambah:hover {background: #059669;}
         .daftar-data {background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+        .aksi-bawah {display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;}
+        button {padding: 11px 16px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1; min-width: 160px;}
+        .btn-kirim {background: #2563eb; color: white;}
+        .btn-kirim:hover {background: #1d4ed8;}
+        .btn-hapus {background: #ef4444; color: white;}
+        .btn-hapus:hover {background: #dc2626;}
         table {width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px;}
         th, td {border: 1px solid #e5e7eb; padding: 8px; text-align: left;}
         th {background: #f9fafb; font-weight: 700;}
@@ -47,7 +47,7 @@
         </div>
         <div class="grup-input">
             <label>3. TANGGAL LAHIR</label>
-            <input type="text" id="tglLahir" placeholder="Contoh: 25-08-1990 / 25081990 (Bisa Copy-Paste)">
+            <input type="text" id="tglLahir" placeholder="Contoh: 25-08-1990 (Bisa Copy-Paste)">
         </div>
         <div class="grup-input">
             <label>4. KPJ</label>
@@ -55,11 +55,7 @@
             <div class="ket">⚠️ Wajib 11 Digit Angka</div>
         </div>
 
-        <div class="tombol-baris">
-            <button type="button" class="btn-tambah" onclick="tambahData()">➕ TAMBAH DATA</button>
-            <button type="button" class="btn-unduh" onclick="unduhDanKirim()">📤 UNDUH / KIRIM WA</button>
-            <button type="button" class="btn-kosong" onclick="kosongkanSemua()">🗑️ KOSONGKAN</button>
-        </div>
+        <button type="button" class="tombol-tambah" id="btnTambah">➕ TAMBAH DATA</button>
         <div id="pesanInfo" class="pesan"></div>
     </div>
 
@@ -77,21 +73,33 @@
             </thead>
             <tbody id="isiTabel"></tbody>
         </table>
+
+        <div class="aksi-bawah">
+            <button type="button" class="btn-kirim" id="btnKirim">📤 UNDUH CSV + KIRIM KE WA</button>
+            <button type="button" class="btn-hapus" id="btnHapus">🗑️ KOSONGKAN SEMUA</button>
+        </div>
     </div>
 </div>
 
 <script>
 let daftarData = [];
 const pesan = document.getElementById('pesanInfo');
+const btnTambah = document.getElementById('btnTambah');
+const btnKirim = document.getElementById('btnKirim');
+const btnHapus = document.getElementById('btnHapus');
+
+// === NOMOR WA KAMU SUDAH TERPAASNG ===
+const NOMOR_WA_KAMU = "6282221559338";
+// =====================================
 
 function tampilPesan(jenis, teks) {
+    pesan.style.display = 'block';
     pesan.className = `pesan ${jenis}`;
     pesan.innerText = teks;
     setTimeout(() => pesan.style.display = 'none', 3000);
 }
 
-function tambahData() {
-    pesan.style.display = 'none';
+btnTambah.addEventListener('click', function() {
     const nik = document.getElementById('nik').value.trim();
     const nama = document.getElementById('nama').value.trim();
     const tglLahir = document.getElementById('tglLahir').value.trim();
@@ -117,62 +125,64 @@ function tambahData() {
     document.getElementById('tglLahir').value = '';
     document.getElementById('kpj').value = '';
     tampilPesan('sukses', '✅ DATA BERHASIL DITAMBAHKAN!');
-}
+});
 
 function perbaruiTabel() {
     const tbody = document.getElementById('isiTabel');
     tbody.innerHTML = '';
     daftarData.forEach((d, i) => {
-        const baris = `<tr>
+        const baris = document.createElement('tr');
+        baris.innerHTML = `
             <td>${i+1}</td>
             <td>${d.nik}</td>
             <td>${d.nama}</td>
             <td>${d.tglLahir}</td>
             <td>${d.kpj}</td>
-        </tr>`;
-        tbody.innerHTML += baris;
+        `;
+        tbody.appendChild(baris);
     });
 }
 
-function unduhDanKirim() {
+btnKirim.addEventListener('click', function() {
     if(daftarData.length === 0) {
-        tampilPesan('gagal', '❌ BELUM ADA DATA YANG DITAMBAHKAN!');
+        tampilPesan('gagal', '❌ BELUM ADA DATA YANG DIMASUKKAN!');
         return;
     }
 
-    // Buat file CSV
+    // 1. BUAT DAN UNDUH FILE CSV
     let isiCSV = 'NIK,NAMA,TANGGAL LAHIR,KPJ\n';
     daftarData.forEach(d => {
         isiCSV += `${d.nik},"${d.nama}",${d.tglLahir},${d.kpj}\n`;
     });
     const blob = new Blob([isiCSV], {type: 'text/csv;charset=utf-8;'});
-    const url = URL.createObjectURL(blob);
+    const urlCSV = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
+    a.href = urlCSV;
     a.download = `DATA_REGIS_${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(urlCSV);
 
-    // Siapkan teks untuk dikirim ke WA
-    let teksWA = "📋 DATA REGIS NON VERMUK\n\n";
+    // 2. SIAPKAN PESAN KE WA
+    let teksWA = "📋 DATA REGIS NON VERMUK\n";
+    teksWA += "📂 File CSV sudah terunduh ke perangkat kamu\n\n";
     daftarData.forEach((d, i) => {
         teksWA += `${i+1}. NIK: ${d.nik}\n   NAMA: ${d.nama}\n   TGL LAHIR: ${d.tglLahir}\n   KPJ: ${d.kpj}\n\n`;
     });
 
-    // Buka WhatsApp otomatis
-    const linkWA = `https://wa.me/?text=${encodeURIComponent(teksWA)}`;
+    // 3. BUKA WA LANGSUNG KE NOMOR KAMU
+    const linkWA = `https://wa.me/${NOMOR_WA_KAMU}?text=${encodeURIComponent(teksWA)}`;
     window.open(linkWA, '_blank');
 
-    tampilPesan('sukses', '✅ FILE DIUNDUH & WA DIBUKA!');
-}
+    tampilPesan('sukses', '✅ CSV DIUNDUH & WA DIBUKA!');
+});
 
-function kosongkanSemua() {
+btnHapus.addEventListener('click', function() {
     if(confirm('Yakin mau hapus semua data?')) {
         daftarData = [];
         perbaruiTabel();
         tampilPesan('sukses', '✅ SEMUA DATA SUDAH DIKOSONGKAN');
     }
-}
+});
 </script>
 </body>
 </html>
