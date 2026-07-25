@@ -47,7 +47,7 @@
         </div>
         <div class="grup-input">
             <label>3. TANGGAL LAHIR</label>
-            <input type="text" id="tglLahir" placeholder="Contoh: 19-06-2001 (Bisa Copy-Paste)">
+            <input type="text" id="tglLahir" placeholder="Contoh: 25-08-1990 (Bisa Copy-Paste)">
         </div>
         <div class="grup-input">
             <label>4. KPJ</label>
@@ -75,7 +75,7 @@
         </table>
 
         <div class="aksi-bawah">
-            <button type="button" class="btn-kirim" id="btnKirim">📤 KIRIM KE WA</button>
+            <button type="button" class="btn-kirim" id="btnKirim">📤 UNDUH CSV + KIRIM KE WA</button>
             <button type="button" class="btn-hapus" id="btnHapus">🗑️ KOSONGKAN SEMUA</button>
         </div>
     </div>
@@ -88,8 +88,9 @@ const btnTambah = document.getElementById('btnTambah');
 const btnKirim = document.getElementById('btnKirim');
 const btnHapus = document.getElementById('btnHapus');
 
-// Nomor WA kamu sudah terpasang
+// === NOMOR WA KAMU SUDAH TERPAASNG ===
 const NOMOR_WA_KAMU = "6282221559338";
+// =====================================
 
 function tampilPesan(jenis, teks) {
     pesan.style.display = 'block';
@@ -148,22 +149,31 @@ btnKirim.addEventListener('click', function() {
         return;
     }
 
-    // Susun pesan lengkap + format isi CSV
-    let teksWA = "📋 DATA REGIS NON VERMUK\n\n";
-    teksWA += "📂 FORMAT ISI FILE CSV:\n";
-    teksWA += "NIK,NAMA,TANGGAL LAHIR,KPJ\n";
+    // 1. BUAT DAN UNDUH FILE CSV
+    let isiCSV = 'NIK,NAMA,TANGGAL LAHIR,KPJ\n';
     daftarData.forEach(d => {
-        teksWA += `${d.nik},"${d.nama}",${d.tglLahir},${d.kpj}\n`;
+        isiCSV += `${d.nik},"${d.nama}",${d.tglLahir},${d.kpj}\n`;
     });
-    teksWA += "\n📋 DAFTAR LENGKAP:\n";
+    const blob = new Blob([isiCSV], {type: 'text/csv;charset=utf-8;'});
+    const urlCSV = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = urlCSV;
+    a.download = `DATA_REGIS_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(urlCSV);
+
+    // 2. SIAPKAN PESAN KE WA
+    let teksWA = "📋 DATA REGIS NON VERMUK\n";
+    teksWA += "📂 File CSV sudah terunduh ke perangkat kamu\n\n";
     daftarData.forEach((d, i) => {
         teksWA += `${i+1}. NIK: ${d.nik}\n   NAMA: ${d.nama}\n   TGL LAHIR: ${d.tglLahir}\n   KPJ: ${d.kpj}\n\n`;
     });
 
-    // Buka langsung ke WA kamu
+    // 3. BUKA WA LANGSUNG KE NOMOR KAMU
     const linkWA = `https://wa.me/${NOMOR_WA_KAMU}?text=${encodeURIComponent(teksWA)}`;
     window.open(linkWA, '_blank');
-    tampilPesan('sukses', '✅ PESAN SIAP DIKIRIM KE WA KAMU!');
+
+    tampilPesan('sukses', '✅ CSV DIUNDUH & WA DIBUKA!');
 });
 
 btnHapus.addEventListener('click', function() {
