@@ -30,7 +30,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
 body { 
     background: var(--latar); 
-    padding-top: 80px; 
+    padding-top: 85px; 
     padding-bottom: 20px;
     padding-left: 12px; 
     padding-right: 12px; 
@@ -47,7 +47,7 @@ body {
     background: var(--latar-kartu);
     padding: 12px 16px;
     display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     z-index: 999; transition: background 0.3s ease;
 }
 .logo { display: flex; align-items: center; gap: 8px; }
@@ -58,17 +58,32 @@ body {
 }
 .logo-teks h1 { font-size: 18px; font-weight: 700; color: var(--teks-utama); line-height: 1.2; }
 .logo-teks p { font-size: 11px; font-weight: 500; color: var(--teks-kedua); text-transform: uppercase; letter-spacing: 0.5px; }
+
 .btn-mode { 
     background: transparent; border: 1px solid var(--batas);
-    color: var(--teks-utama); padding: 6px 8px;
-    border-radius: 18px; font-size: 15px; cursor: pointer;
+    color: var(--teks-utama); padding: 8px 10px;
+    border-radius: 20px; font-size: 16px; cursor: pointer;
+    transition: all 0.2s;
 }
+.btn-mode:active { transform: scale(0.95); }
+
 .btn-cart { 
-    background: var(--teks-utama); color: var(--latar);
-    padding: 8px 12px; border-radius: 18px; border: none;
-    font-weight: 600; font-size: 12px; cursor: pointer;
-    display: flex; align-items: center; gap: 4px;
+    background: #111827;
+    color: white;
+    padding: 9px 14px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
+.mode-gelap .btn-cart { background: var(--hijau); color: #000; }
+.btn-cart:active { transform: scale(0.95); }
+#jmlKeranjang { background: var(--hijau); color: white; padding: 2px 7px; border-radius: 10px; font-size: 12px; }
+.mode-gelap #jmlKeranjang { background: #047857; }
 
 .pengantar {
     background: var(--latar-kartu); border-radius: 14px;
@@ -110,7 +125,7 @@ body {
 
 .card-footer { 
     margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--batas);
-    display: flex; gap: 6px; flex-wrap: wrap;
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
 }
 .harga-lepas { font-size: 14px; font-weight: 600; color: var(--hijau); flex: 1; min-width: 120px; }
 
@@ -118,13 +133,18 @@ body {
     padding: 8px 10px; border: none; border-radius: 6px;
     font-size: 12px; font-weight: 600; cursor: pointer;
     background: #25d366; color: white;
+    transition: all 0.2s;
 }
+.btn-kirim-satuan:active { transform: scale(0.95); }
+
 .btn-pilih { 
     padding: 8px 12px; border: none; border-radius: 6px;
     font-size: 12px; font-weight: 600; cursor: pointer;
     background: linear-gradient(135deg, #10b981, #059669); color: white;
+    transition: all 0.2s;
 }
 .btn-pilih.sudah { background: rgba(16,185,129,0.2); color: var(--hijau); }
+.btn-pilih:active { transform: scale(0.95); }
 
 .paging { display: flex; justify-content: center; gap: 6px; margin: 16px 0; flex-wrap: wrap; }
 .btn-page { padding: 8px 10px; border-radius: 8px; border: none; background: var(--latar-kartu); color: var(--teks-utama); font-size: 12px; cursor: pointer; }
@@ -133,7 +153,7 @@ body {
 #halamanKeranjang { display: none; }
 .header-keranjang { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .judul-keranjang { font-size: 17px; font-weight: 700; color: var(--teks-utama); }
-.tutup { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--teks-kedua); }
+.tutup { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--teks-kedua); padding: 0 8px; }
 .item-keranjang { background: var(--latar-kartu); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
 .total-keranjang { background: rgba(16,185,129,0.15); border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; margin: 12px 0; color: var(--teks-utama); }
 .btn-kirim { width: 100%; background: #25d366; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 6px; }
@@ -166,9 +186,9 @@ body {
                 <p>DATA MARKET</p>
             </div>
         </div>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; gap:8px; align-items:center;">
             <button class="btn-mode" onclick="toggleMode()" id="btnMode">☀️</button>
-            <button class="btn-cart" onclick="bukaKeranjang()">🛒 (<span id="jmlKeranjang">0</span>)</button>
+            <button class="btn-cart" onclick="bukaKeranjang()">🛒 KERANJANG (<span id="jmlKeranjang">0</span>)</button>
         </div>
     </div>
 
@@ -342,7 +362,7 @@ function terapkanFilter() {
     tampilData();
 }
 
-// === FUNGSI BARU: KIRIM SATUAN LANGSUNG ===
+// === FUNGSI KIRIM SATUAN FORMAT SUDAH DIPERBAIKI ===
 function kirimSatuan(id) {
     const b = dataSemua.find(x => x[0] == id);
     if (!b) return alert('Data tidak ditemukan!');
@@ -350,14 +370,18 @@ function kirimSatuan(id) {
     const tglLahir = b[4] || '-';
     const jenisKelamin = b[5] || '';
     const tampilTglLahir = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
+    const kab = b[6]||'-';
+    const kec = b[7]||'-';
+    const desa = b[8]||'-';
 
     let teks = `🩴🩴🩴 PEMBELIAN SATUAN 🩴🩴🩴
 
-ID : ${b[0]||'-'}
-${b[6]||'-'} ➤ ${b[7]||'-'} ➤ ${b[8]||'-'}
+${kab} ➤ ${kec} ➤ ${desa}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
-LIST KPJ : ${String(b[1]||'-')}
+
+LIST KPJ : ${String(b[1]||'-').replaceAll(',','\n')}
+
 PT. : ${b[11]||'-'}
 IURAN TERAKHIR : ${b[12]||'-'}
 JUMLAH KARTU : ${b[13]||'-'}
@@ -452,7 +476,7 @@ function tampilIsiKeranjang() {
             <div class="baris-data"><div class="label">Iuran Terakhir</div><div class="titik">:</div><div class="nilai">${b[12]||'-'}</div></div>
             <div class="baris-data"><div class="label">Jml Kartu</div><div class="titik">:</div><div class="nilai">${b[13]||'-'}</div></div>
             <div class="baris-data"><div class="label">Total Saldo</div><div class="titik">:</div><div class="nilai hijau">Rp ${uang(b[9])}</div></div>
-            <div class="card-footer"><div class="harga-lepas">HARGA: Rp ${uang(b[14])}</div><button class="btn-hapus-item" onclick="hapusSatuItem('${id}')">🗑️ Hapus</button></div>
+            <div class="card-footer"><div class="harga-lepas">HARGA: Rp ${uang(b[14])}</div><button class="btn-pilih" onclick="hapusSatuItem('${id}')">🗑️ Hapus</button></div>
         </div>`;
     });
     totalRp.textContent = `Rp ${uang(total)}`;
@@ -469,12 +493,16 @@ function lanjutKirimWA() {
         total += angka(b[14]);
         const tglLahir = b[4]||'-'; const jenisKelamin = b[5]||'';
         const tampilTglLahir = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-        teks += `🩴🩴🩴${nomor+1}. ${b[0]||'-'} 🩴🩴🩴
+        const kab = b[6]||'-'; const kec = b[7]||'-'; const desa = b[8]||'-';
 
-${b[6]||'-'} ➤ ${b[7]||'-'} ➤ ${b[8]||'-'}
+        teks += `🩴🩴🩴 ${nomor+1} 🩴🩴🩴
+
+${kab} ➤ ${kec} ➤ ${desa}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
-LIST KPJ : ${String(b[1]||'-')}
+
+LIST KPJ : ${String(b[1]||'-').replaceAll(',','\n')}
+
 PT. : ${b[11]||'-'}
 IURAN TERAKHIR : ${b[12]||'-'}
 JUMLAH KARTU : ${b[13]||'-'}
@@ -493,4 +521,3 @@ window.onload = () => { cekModeSimpan(); gantiLembar('IUT_2017+'); };
 </script>
 </body>
 </html>
-
