@@ -362,7 +362,7 @@ function terapkanFilter() {
     tampilData();
 }
 
-// === FUNGSI KIRIM SATUAN FORMAT SUDAH DIPERBAIKI ===
+// === FUNGSI KIRIM SATUAN SUDAH DIPERBAIKI JUDUL JADI ID ===
 function kirimSatuan(id) {
     const b = dataSemua.find(x => x[0] == id);
     if (!b) return alert('Data tidak ditemukan!');
@@ -374,7 +374,7 @@ function kirimSatuan(id) {
     const kec = b[7]||'-';
     const desa = b[8]||'-';
 
-    let teks = `🩴🩴🩴 PEMBELIAN SATUAN 🩴🩴🩴
+    let teks = `🩴🩴🩴 ID : ${id} 🩴🩴🩴
 
 ${kab} ➤ ${kec} ➤ ${desa}
 
