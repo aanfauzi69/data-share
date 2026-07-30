@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STORE - Data Market</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -30,7 +27,7 @@
     --abu: #d1d5db;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
 body { 
     background: var(--latar); 
     padding-top: 80px; 
@@ -191,7 +188,7 @@ body {
 .baris-data { display: flex; padding: 3px 0; font-size: 16px; }
 .baris-data .label { width: 110px; font-weight: 500; color: var(--abu); flex-shrink: 0; transition: color 0.3s ease; }
 .baris-data .titik { margin-right: 6px; color: var(--abu); font-size: 16px; transition: color 0.3s ease; }
-.baris-data .nilai { font-weight: 500; color: var(--teks-utama); flex: 1; word-break: break-word; transition: color 0.3s ease; }
+.baris-data .nilai { font-weight: 500; color: var(--teks-utama); flex: 1; word-break: break-word; white-space: pre-line; transition: color 0.3s ease; }
 .baris-data .nilai.hijau { color: var(--hijau); font-weight: 700; }
 .jeda-kelompok { margin: 10px 0; border-bottom: 1px solid var(--batas); }
 
@@ -447,12 +444,25 @@ function toggleMode() {
     btnMode.textContent = aktif ? '☀️' : '🌙';
 }
 
+// Sensor Nama: 2 huruf awal tiap kata
 function sensorNama(nama) {
     if (!nama) return '-';
     return nama.split(' ').map(kata => {
         if (kata.length <= 2) return kata + '*'.repeat(Math.max(0, 2 - kata.length));
         return kata.substring(0, 2) + '*'.repeat(kata.length - 2);
     }).join(' ');
+}
+
+// KPJ ditampilkan UTUH sesuai isi asli sel
+function ambilKPJUtuh(kpj) {
+    if (!kpj) return '-';
+    return String(kpj);
+}
+
+// Ambil NIK 6 digit pertama saja
+function potongNIK(nik) {
+    if (!nik) return '-';
+    return String(nik).trim().slice(0,6);
 }
 
 async function gantiLembar(namaLembar) {
@@ -532,7 +542,8 @@ function tampilData() {
         const tglLahir = b[4]||'-';
         const jenisKelamin = b[5]||'';
         const tampilTglLengkap = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-        const kpj = b[1]||'-';
+        const listKpj = ambilKPJUtuh(b[1]||'-');
+        const nikPotong = potongNIK(b[2]||'-');
         
         daftarData.innerHTML += `
         <div class="card">
@@ -540,12 +551,12 @@ function tampilData() {
                 <div class="card-kab">${kab}</div>
                 <div class="card-id">ID: ${id}</div>
             </div>
-            <div class="card-bawah">LOKASI: ${kec} - ${desa}</div>
+            <div class="card-bawah">${kec} - ${desa}</div>
             
             <div class="baris-data">
                 <div class="label">NIK</div>
                 <div class="titik">:</div>
-                <div class="nilai">${b[2]||'-'}</div>
+                <div class="nilai">${nikPotong}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Nama</div>
@@ -561,9 +572,9 @@ function tampilData() {
             <div class="jeda-kelompok"></div>
             
             <div class="baris-data">
-                <div class="label">KPJ</div>
+                <div class="label">List KPJ</div>
                 <div class="titik">:</div>
-                <div class="nilai">${kpj}</div>
+                <div class="nilai">${listKpj}</div>
             </div>
             <div class="baris-data">
                 <div class="label">PT</div>
@@ -571,19 +582,9 @@ function tampilData() {
                 <div class="nilai">${b[11]||'-'}</div>
             </div>
             <div class="baris-data">
-                <div class="label">Saldo Awal</div>
-                <div class="titik">:</div>
-                <div class="nilai">Rp ${uang(b[10])}</div>
-            </div>
-            <div class="baris-data">
                 <div class="label">Iuran Terakhir</div>
                 <div class="titik">:</div>
                 <div class="nilai">${b[12]||'-'}</div>
-            </div>
-            <div class="baris-data">
-                <div class="label">Sensor</div>
-                <div class="titik">:</div>
-                <div class="nilai">${b[13]||'-'}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Total Saldo</div>
@@ -633,7 +634,8 @@ function tampilIsiKeranjang() {
         const tglLahir = b[4]||'-';
         const jenisKelamin = b[5]||'';
         const tampilTglLengkap = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-        const kpj = b[1]||'-';
+        const listKpj = ambilKPJUtuh(b[1]||'-');
+        const nikPotong = potongNIK(b[2]||'-');
         
         isiKeranjang.innerHTML += `
         <div class="item-keranjang">
@@ -641,12 +643,12 @@ function tampilIsiKeranjang() {
                 <div class="nama-kab">${kab}</div>
                 <div class="id-item">ID: ${id}</div>
             </div>
-            <div class="lokasi-item">LOKASI: ${kec} - ${desa}</div>
+            <div class="lokasi-item">${kec} - ${desa}</div>
             
             <div class="baris-data">
                 <div class="label">NIK</div>
                 <div class="titik">:</div>
-                <div class="nilai">${b[2]||'-'}</div>
+                <div class="nilai">${nikPotong}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Nama</div>
@@ -662,9 +664,9 @@ function tampilIsiKeranjang() {
             <div class="jeda-kelompok"></div>
             
             <div class="baris-data">
-                <div class="label">KPJ</div>
+                <div class="label">List KPJ</div>
                 <div class="titik">:</div>
-                <div class="nilai">${kpj}</div>
+                <div class="nilai">${listKpj}</div>
             </div>
             <div class="baris-data">
                 <div class="label">PT</div>
@@ -672,19 +674,9 @@ function tampilIsiKeranjang() {
                 <div class="nilai">${b[11]||'-'}</div>
             </div>
             <div class="baris-data">
-                <div class="label">Saldo Awal</div>
-                <div class="titik">:</div>
-                <div class="nilai">Rp ${uang(b[10])}</div>
-            </div>
-            <div class="baris-data">
                 <div class="label">Iuran Terakhir</div>
                 <div class="titik">:</div>
                 <div class="nilai">${b[12]||'-'}</div>
-            </div>
-            <div class="baris-data">
-                <div class="label">Sensor</div>
-                <div class="titik">:</div>
-                <div class="nilai">${b[13]||'-'}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Total Saldo</div>
@@ -740,13 +732,10 @@ ${b[6]||'-'}
 ${b[7]||'-'}
 ${b[8]||'-'}
 
-NIK  : ${b[2]||'-'} | ${tampilTglLahir}
-KPJ. : ${b[1]||'-'}
+NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
+LIST KPJ : ${String(b[1]||'-')}
 PT. : ${b[11]||'-'}
 IURAN TERAKHIR : ${b[12]||'-'}
-SALDO AWAL     : Rp ${uang(b[10])}
-
-KARTU / SENSOR : ${b[13]||'-'}
 TOTAL SALDO    : Rp ${uang(b[9])}
 
 ==== JUAL LEPAS : Rp ${uang(b[14])} =====
