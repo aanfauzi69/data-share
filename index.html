@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -174,8 +175,8 @@ body {
     transition: color 0.3s ease;
 }
 .card-bawah {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--teks-utama);
     margin-bottom: 10px;
     transition: color 0.3s ease;
@@ -256,8 +257,8 @@ body {
     color: var(--hijau);
 }
 .item-keranjang .lokasi-item {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--teks-utama);
     margin-bottom: 10px;
 }
@@ -330,7 +331,7 @@ body {
 
     <div class="filter-box">
         <div class="filter-title">PENCARIAN</div>
-        <input type="text" class="input-search" id="cari" placeholder="NIK, Kecamatan, Desa..." oninput="terapkanFilter()">
+        <input type="text" class="input-search" id="cari" placeholder="NIK, Kabupaten, Kecamatan, Desa..." oninput="terapkanFilter()">
         
         <div class="filter-title">PILIH DATA</div>
         <div class="tombol-lembar">
@@ -506,7 +507,7 @@ function uang(x) { return new Intl.NumberFormat('id-ID').format(angka(x)); }
 function terapkanFilter() {
     const kata = cari.value.toLowerCase();
     dataFilter = dataSemua.filter(b => {
-        const teks = `${b[2]||''} ${b[7]||''} ${b[8]||''}`.toLowerCase();
+        const teks = `${b[2]||''} ${b[6]||''} ${b[7]||''} ${b[8]||''}`.toLowerCase();
         return kata === '' || teks.includes(kata);
     });
     halSaatIni = 1;
@@ -527,6 +528,7 @@ function tampilData() {
         const id = b[0]||'-';
         const sudah = keranjang.includes(id);
         const namaDisensor = sensorNama(b[3]||'-');
+        const kab = b[6]||'-';
         const kec = b[7]||'-';
         const desa = b[8]||'-';
         
@@ -541,7 +543,7 @@ function tampilData() {
             <div class="card-atas">
                 <div class="card-id">ID: ${id}</div>
             </div>
-            <div class="card-bawah">${kec} - ${desa}</div>
+            <div class="card-bawah">${kab} ➤ ${kec} ➤ ${desa}</div>
             
             <div class="baris-data">
                 <div class="label">NIK</div>
@@ -623,6 +625,7 @@ function tampilIsiKeranjang() {
         const b = dataSemua.find(x=>x[0]==id); if(!b) return;
         total += angka(b[14]);
         const namaDisensor = sensorNama(b[3]||'-');
+        const kab = b[6]||'-';
         const kec = b[7]||'-';
         const desa = b[8]||'-';
         const tglLahir = b[4]||'-';
@@ -636,7 +639,7 @@ function tampilIsiKeranjang() {
             <div class="atas-item">
                 <div class="id-item">ID: ${id}</div>
             </div>
-            <div class="lokasi-item">${kec} - ${desa}</div>
+            <div class="lokasi-item">${kab} ➤ ${kec} ➤ ${desa}</div>
             
             <div class="baris-data">
                 <div class="label">NIK</div>
@@ -726,7 +729,7 @@ function lanjutKirimWA() {
 
         teks += `🩴🩴🩴${nomor+1}. ${b[0]||'-'} 🩴🩴🩴
 
-${b[7]||'-'} - ${b[8]||'-'}
+${b[6]||'-'} ➤ ${b[7]||'-'} ➤ ${b[8]||'-'}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
 LIST KPJ : ${String(b[1]||'-')}
