@@ -32,11 +32,12 @@ body {
     background: var(--latar); 
     padding-top: 80px; 
     padding-bottom: 20px;
-    padding-left: 16px; 
-    padding-right: 16px; 
+    padding-left: 12px; 
+    padding-right: 12px; 
     max-width: 480px; 
     margin: 0 auto; 
     transition: background 0.3s ease;
+    font-size: 14px;
 }
 
 .header { 
@@ -47,98 +48,98 @@ body {
     max-width: 480px;
     margin: 0 auto;
     background: var(--latar-kartu);
-    padding: 16px;
+    padding: 12px 16px;
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     z-index: 999;
     transition: background 0.3s ease;
 }
-.logo { display: flex; align-items: center; gap: 10px; }
+.logo { display: flex; align-items: center; gap: 8px; }
 .logo-icon { 
-    width: 40px; 
-    height: 40px; 
+    width: 36px; 
+    height: 36px; 
     background: var(--hijau); 
-    border-radius: 12px; 
+    border-radius: 10px; 
     display: grid; 
     place-items: center; 
     color: white; 
-    font-size: 22px; 
+    font-size: 20px; 
 }
-.logo-teks h1 { font-size: 20px; font-weight: 700; color: var(--teks-utama); line-height: 1.2; transition: color 0.3s ease; }
-.logo-teks p { font-size: 12px; font-weight: 500; color: var(--teks-kedua); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s ease; }
+.logo-teks h1 { font-size: 18px; font-weight: 700; color: var(--teks-utama); line-height: 1.2; transition: color 0.3s ease; }
+.logo-teks p { font-size: 11px; font-weight: 500; color: var(--teks-kedua); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s ease; }
 .btn-mode { 
     background: transparent;
     border: 1px solid var(--batas);
     color: var(--teks-utama);
-    padding: 8px 10px;
-    border-radius: 20px;
-    font-size: 16px;
+    padding: 6px 8px;
+    border-radius: 18px;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 .btn-cart { 
     background: var(--teks-utama); 
     color: var(--latar); 
-    padding: 10px 14px; 
-    border-radius: 20px; 
+    padding: 8px 12px; 
+    border-radius: 18px; 
     border: none; 
     font-weight: 600; 
-    font-size: 13px; 
+    font-size: 12px; 
     cursor: pointer; 
     display: flex; 
     align-items: center; 
-    gap: 5px; 
+    gap: 4px; 
     transition: all 0.3s ease;
 }
 
 .pengantar {
     background: var(--latar-kartu);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     transition: background 0.3s ease;
 }
 .pengantar h2 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--teks-utama);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     line-height: 1.3;
     transition: color 0.3s ease;
 }
 .pengantar p {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--teks-kedua);
     line-height: 1.6;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     transition: color 0.3s ease;
 }
 .info-ringkas {
     display: flex;
-    gap: 20px;
-    font-size: 13px;
+    gap: 16px;
+    font-size: 12px;
     color: var(--abu);
     font-weight: 500;
     transition: color 0.3s ease;
 }
 .info-ringkas span { display: flex; align-items: center; gap: 4px; }
 
-.filter-box { background: var(--latar-kartu); border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: background 0.3s ease; }
-.filter-title { font-size: 13px; font-weight: 700; color: var(--abu); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.3px; transition: color 0.3s ease; }
-.input-search { width: 100%; padding: 11px 13px; border: 1px solid var(--batas); border-radius: 10px; font-size: 14px; background: var(--latar); color: var(--teks-utama); margin-bottom: 14px; transition: all 0.3s ease; }
+.filter-box { background: var(--latar-kartu); border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: background 0.3s ease; }
+.filter-title { font-size: 12px; font-weight: 700; color: var(--abu); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.3px; transition: color 0.3s ease; }
+.input-search { width: 100%; padding: 10px 12px; border: 1px solid var(--batas); border-radius: 8px; font-size: 14px; background: var(--latar); color: var(--teks-utama); margin-bottom: 12px; transition: all 0.3s ease; }
 .input-search:focus { outline: none; border-color: var(--hijau); background: var(--latar-kartu); }
 
-.tombol-lembar { display: flex; flex-wrap: wrap; gap: 7px; }
+.tombol-lembar { display: flex; flex-wrap: wrap; gap: 6px; }
 .btn-lembar {
-    flex: 1; min-width: 75px;
-    padding: 9px 5px;
+    flex: 1; min-width: 70px;
+    padding: 8px 4px;
     border: 2px solid var(--batas);
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--latar-kartu);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--teks-utama);
     cursor: pointer;
@@ -153,52 +154,47 @@ body {
 .card { 
     background: var(--latar-kartu); 
     border-radius: 12px; 
-    padding: 16px; 
-    margin-bottom: 14px; 
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05); 
+    padding: 14px; 
+    margin-bottom: 12px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
     transition: background 0.3s ease; 
 }
 .card-atas {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 4px;
-    padding-bottom: 6px;
+    margin-bottom: 2px;
+    padding-bottom: 4px;
     border-bottom: 1px solid var(--batas);
 }
-.card-kab {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--teks-utama);
-    transition: color 0.3s ease;
-}
 .card-id {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--hijau);
     transition: color 0.3s ease;
 }
 .card-bawah {
     font-size: 15px;
-    color: var(--teks-kedua);
-    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--teks-utama);
+    margin-bottom: 10px;
     transition: color 0.3s ease;
 }
 
-.baris-data { display: flex; padding: 3px 0; font-size: 16px; }
-.baris-data .label { width: 110px; font-weight: 500; color: var(--abu); flex-shrink: 0; transition: color 0.3s ease; }
-.baris-data .titik { margin-right: 6px; color: var(--abu); font-size: 16px; transition: color 0.3s ease; }
+.baris-data { display: flex; padding: 2px 0; font-size: 14px; }
+.baris-data .label { width: 100px; font-weight: 500; color: var(--abu); flex-shrink: 0; transition: color 0.3s ease; }
+.baris-data .titik { margin-right: 5px; color: var(--abu); font-size: 14px; transition: color 0.3s ease; }
 .baris-data .nilai { font-weight: 500; color: var(--teks-utama); flex: 1; word-break: break-word; white-space: pre-line; transition: color 0.3s ease; }
 .baris-data .nilai.hijau { color: var(--hijau); font-weight: 700; }
-.jeda-kelompok { margin: 10px 0; border-bottom: 1px solid var(--batas); }
+.jeda-kelompok { margin: 8px 0; border-bottom: 1px solid var(--batas); }
 
-.card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--batas); display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: border-color 0.3s ease; }
-.harga-lepas { font-size: 15px; font-weight: 600; color: var(--hijau); }
+.card-footer { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--batas); display: flex; justify-content: space-between; align-items: center; gap: 10px; transition: border-color 0.3s ease; }
+.harga-lepas { font-size: 14px; font-weight: 600; color: var(--hijau); }
 .btn-hapus-item { 
-    padding: 8px 12px; 
+    padding: 7px 10px; 
     border: none; 
-    border-radius: 8px; 
-    font-size: 13px; 
+    border-radius: 6px; 
+    font-size: 12px; 
     font-weight: 600; 
     cursor: pointer; 
     background: rgba(239, 68, 68, 0.1);
@@ -207,19 +203,19 @@ body {
 }
 .btn-pilih { 
     flex: 1; 
-    padding: 12px 16px; 
+    padding: 10px 14px; 
     border: none; 
-    border-radius: 10px; 
-    font-size: 16px; 
+    border-radius: 8px; 
+    font-size: 14px; 
     font-weight: 700; 
     cursor: pointer; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    gap: 6px; 
+    gap: 5px; 
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
     transition: all 0.2s;
 }
 .btn-pilih.sudah { 
@@ -229,49 +225,45 @@ body {
 }
 .btn-pilih:active { transform: scale(0.97); }
 
-.paging { display: flex; justify-content: center; gap: 8px; margin: 18px 0; flex-wrap: wrap; }
-.btn-page { padding: 9px 12px; border-radius: 10px; border: none; background: var(--latar-kartu); color: var(--teks-utama); font-size: 13px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+.paging { display: flex; justify-content: center; gap: 6px; margin: 16px 0; flex-wrap: wrap; }
+.btn-page { padding: 8px 10px; border-radius: 8px; border: none; background: var(--latar-kartu); color: var(--teks-utama); font-size: 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.3s ease; }
 .btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
-.memuat { text-align: center; padding: 50px 16px; color: var(--teks-kedua); font-size: 14px; transition: color 0.3s ease; }
+.memuat { text-align: center; padding: 40px 16px; color: var(--teks-kedua); font-size: 13px; transition: color 0.3s ease; }
 
 #halamanKeranjang { display: none; }
-.header-keranjang { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-.judul-keranjang { font-size: 18px; font-weight: 700; color: var(--teks-utama); transition: color 0.3s ease; }
-.tutup { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--teks-kedua); padding: 0; transition: color 0.3s ease; }
+.header-keranjang { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.judul-keranjang { font-size: 17px; font-weight: 700; color: var(--teks-utama); transition: color 0.3s ease; }
+.tutup { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--teks-kedua); padding: 0; transition: color 0.3s ease; }
 .item-keranjang { 
     background: var(--latar-kartu); 
     border-radius: 12px; 
-    padding: 16px; 
-    margin-bottom: 12px; 
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05); 
+    padding: 14px; 
+    margin-bottom: 10px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
     transition: background 0.3s ease;
 }
 .item-keranjang .atas-item {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 4px;
-    padding-bottom: 6px;
+    margin-bottom: 2px;
+    padding-bottom: 4px;
     border-bottom: 1px solid var(--batas);
 }
-.item-keranjang .nama-kab {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--teks-utama);
-}
 .item-keranjang .id-item {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--hijau);
 }
 .item-keranjang .lokasi-item {
     font-size: 15px;
-    color: var(--teks-kedua);
-    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--teks-utama);
+    margin-bottom: 10px;
 }
-.total-keranjang { background: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; font-weight: 700; font-size: 15px; margin: 14px 0; color: var(--teks-utama); transition: all 0.3s ease; }
-.btn-kirim { width: 100%; background: #25d366; color: white; border: none; padding: 13px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
-.btn-reset { width: 100%; background: none; border: none; color: var(--merah); padding: 9px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 4px; transition: color 0.3s ease; }
+.total-keranjang { background: rgba(16, 185, 129, 0.15); border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; margin: 12px 0; color: var(--teks-utama); transition: all 0.3s ease; }
+.btn-kirim { width: 100%; background: #25d366; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 6px; }
+.btn-reset { width: 100%; background: none; border: none; color: var(--merah); padding: 8px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 2px; transition: color 0.3s ease; }
 
 .modal {
     position: fixed;
@@ -285,28 +277,28 @@ body {
 }
 .modal-badan {
     background: var(--latar-kartu);
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 14px;
+    padding: 18px;
     max-width: 450px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     transition: background 0.3s ease;
 }
-.modal-judul { font-size: 18px; font-weight: 700; margin-bottom: 12px; text-align: center; color: var(--teks-utama); transition: color 0.3s ease; }
-.syarat-bagian { border-radius: 10px; padding: 12px; margin-bottom: 10px; font-size: 14px; line-height: 1.6; }
-.syarat-bagian h4 { margin-bottom: 6px; font-size: 15px; font-weight: 700; }
+.modal-judul { font-size: 17px; font-weight: 700; margin-bottom: 10px; text-align: center; color: var(--teks-utama); transition: color 0.3s ease; }
+.syarat-bagian { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+.syarat-bagian h4 { margin-bottom: 5px; font-size: 14px; font-weight: 700; }
 .syarat-wajib { background: #fffbeb; color: #92400e; }
 .mode-gelap .syarat-wajib { background: #422006; color: #fcd34d; }
 .syarat-ketentuan { background: #f0fdf4; color: #166534; }
 .mode-gelap .syarat-ketentuan { background: #052e16; color: #86efac; }
 .syarat-penting { background: #fef2f2; color: #991b1b; }
 .mode-gelap .syarat-penting { background: #450a0a; color: #fca5a5; }
-.cek-setuju { display: flex; align-items: center; gap: 8px; margin: 16px 0; font-size: 14px; font-weight: 500; color: var(--teks-utama); transition: color 0.3s ease; }
-.cek-setuju input { width: 18px; height: 18px; cursor: pointer; }
+.cek-setuju { display: flex; align-items: center; gap: 8px; margin: 14px 0; font-size: 13px; font-weight: 500; color: var(--teks-utama); transition: color 0.3s ease; }
+.cek-setuju input { width: 17px; height: 17px; cursor: pointer; }
 .btn-modal { display: flex; gap: 8px; }
-.btn-batal { flex:1; padding:12px; border:none; border-radius:10px; background: var(--batas); color: var(--teks-utama); font-weight:600; cursor:pointer; transition: all 0.3s ease; }
-.btn-lanjut { flex:1; padding:12px; border:none; border-radius:10px; background:#25d366; color:white; font-weight:600; cursor:pointer; }
+.btn-batal { flex:1; padding:11px; border:none; border-radius:8px; background: var(--batas); color: var(--teks-utama); font-weight:600; cursor:pointer; transition: all 0.3s ease; }
+.btn-lanjut { flex:1; padding:11px; border:none; border-radius:8px; background:#25d366; color:white; font-weight:600; cursor:pointer; }
 .btn-lanjut:disabled { background:#86efac; cursor:not-allowed; }
 </style>
 </head>
@@ -331,14 +323,14 @@ body {
         <h2>Cari data lengkap, pilih mudah, proses aman cepat.</h2>
         <p>Telusuri data seluruh wilayah Indonesia. Pilih sesuai kebutuhan, tambahkan ke keranjang, lalu pesan langsung lewat WhatsApp.</p>
         <div class="info-ringkas">
-            <span>📍 <span id="jmlKab">0</span>+ Kabupaten</span>
+            <span>📍 <span id="jmlKab">0</span>+ Wilayah</span>
             <span>📦 <span id="jmlTotal">0</span>+ Data</span>
         </div>
     </div>
 
     <div class="filter-box">
         <div class="filter-title">PENCARIAN</div>
-        <input type="text" class="input-search" id="cari" placeholder="NIK, Kabupaten, Kecamatan, Desa..." oninput="terapkanFilter()">
+        <input type="text" class="input-search" id="cari" placeholder="NIK, Kecamatan, Desa..." oninput="terapkanFilter()">
         
         <div class="filter-title">PILIH DATA</div>
         <div class="tombol-lembar">
@@ -356,7 +348,7 @@ body {
     <div class="paging">
         <button class="btn-page" onclick="gantiHalaman(1)">Pertama</button>
         <button class="btn-page" onclick="gantiHalaman(halSaatIni-1)" id="btnPrev" disabled>⬅</button>
-        <span id="infoHal" style="padding:7px 10px;">Hal 1</span>
+        <span id="infoHal" style="padding:6px 8px;">Hal 1</span>
         <button class="btn-page" onclick="gantiHalaman(halSaatIni+1)" id="btnNext" disabled>➡</button>
         <button class="btn-page" onclick="gantiHalaman(totalHal)">Terakhir</button>
     </div>
@@ -504,8 +496,8 @@ async function ambilDataLembar() {
 }
 
 function hitungInfo() {
-    const kab = new Set(dataFilter.map(b => b[6]||'').filter(x => x));
-    document.getElementById('jmlKab').textContent = kab.size;
+    const wilayah = new Set(dataFilter.map(b => `${b[6]||''} ${b[7]||''}`.trim()).filter(x => x));
+    document.getElementById('jmlKab').textContent = wilayah.size;
     document.getElementById('jmlTotal').textContent = dataFilter.length;
 }
 function angka(x) { return Number(String(x||0).replace(/[^0-9]/g,'')) || 0; }
@@ -514,7 +506,7 @@ function uang(x) { return new Intl.NumberFormat('id-ID').format(angka(x)); }
 function terapkanFilter() {
     const kata = cari.value.toLowerCase();
     dataFilter = dataSemua.filter(b => {
-        const teks = `${b[2]||''} ${b[6]||''} ${b[7]||''} ${b[8]||''}`.toLowerCase();
+        const teks = `${b[2]||''} ${b[7]||''} ${b[8]||''}`.toLowerCase();
         return kata === '' || teks.includes(kata);
     });
     halSaatIni = 1;
@@ -535,7 +527,6 @@ function tampilData() {
         const id = b[0]||'-';
         const sudah = keranjang.includes(id);
         const namaDisensor = sensorNama(b[3]||'-');
-        const kab = b[6]||'-';
         const kec = b[7]||'-';
         const desa = b[8]||'-';
         
@@ -548,7 +539,6 @@ function tampilData() {
         daftarData.innerHTML += `
         <div class="card">
             <div class="card-atas">
-                <div class="card-kab">${kab}</div>
                 <div class="card-id">ID: ${id}</div>
             </div>
             <div class="card-bawah">${kec} - ${desa}</div>
@@ -585,6 +575,11 @@ function tampilData() {
                 <div class="label">Iuran Terakhir</div>
                 <div class="titik">:</div>
                 <div class="nilai">${b[12]||'-'}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Jml Kartu</div>
+                <div class="titik">:</div>
+                <div class="nilai">${b[13]||'-'}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Total Saldo</div>
@@ -628,7 +623,6 @@ function tampilIsiKeranjang() {
         const b = dataSemua.find(x=>x[0]==id); if(!b) return;
         total += angka(b[14]);
         const namaDisensor = sensorNama(b[3]||'-');
-        const kab = b[6]||'-';
         const kec = b[7]||'-';
         const desa = b[8]||'-';
         const tglLahir = b[4]||'-';
@@ -640,7 +634,6 @@ function tampilIsiKeranjang() {
         isiKeranjang.innerHTML += `
         <div class="item-keranjang">
             <div class="atas-item">
-                <div class="nama-kab">${kab}</div>
                 <div class="id-item">ID: ${id}</div>
             </div>
             <div class="lokasi-item">${kec} - ${desa}</div>
@@ -677,6 +670,11 @@ function tampilIsiKeranjang() {
                 <div class="label">Iuran Terakhir</div>
                 <div class="titik">:</div>
                 <div class="nilai">${b[12]||'-'}</div>
+            </div>
+            <div class="baris-data">
+                <div class="label">Jml Kartu</div>
+                <div class="titik">:</div>
+                <div class="nilai">${b[13]||'-'}</div>
             </div>
             <div class="baris-data">
                 <div class="label">Total Saldo</div>
@@ -728,14 +726,13 @@ function lanjutKirimWA() {
 
         teks += `🩴🩴🩴${nomor+1}. ${b[0]||'-'} 🩴🩴🩴
 
-${b[6]||'-'}
-${b[7]||'-'}
-${b[8]||'-'}
+${b[7]||'-'} - ${b[8]||'-'}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
 LIST KPJ : ${String(b[1]||'-')}
 PT. : ${b[11]||'-'}
 IURAN TERAKHIR : ${b[12]||'-'}
+JUMLAH KARTU : ${b[13]||'-'}
 TOTAL SALDO    : Rp ${uang(b[9])}
 
 ==== JUAL LEPAS : Rp ${uang(b[14])} =====
