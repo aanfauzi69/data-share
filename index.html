@@ -15,6 +15,9 @@
     --hijau: #10b981;
     --merah: #ef4444;
     --abu: #374151;
+    --nav-latar: #eef2f7;
+    --nav-teks: #111827;
+    --nav-batas: #d1d5db;
 }
 .mode-gelap {
     --latar: #111827;
@@ -25,6 +28,9 @@
     --hijau: #34d399;
     --merah: #f87171;
     --abu: #d1d5db;
+    --nav-latar: #2d3748;
+    --nav-teks: #ffffff;
+    --nav-batas: #4b5563;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
@@ -98,18 +104,10 @@ body {
 .filter-box { background: var(--latar-kartu); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
 .filter-title { font-size: 12px; font-weight: 700; color: var(--abu); margin-bottom: 8px; text-transform: uppercase; }
 .input-search { width: 100%; padding: 10px 12px; border: 1px solid var(--batas); border-radius: 8px; font-size: 14px; background: var(--latar); color: var(--teks-utama); margin-bottom: 12px; }
-.tombol-lembar { display: flex; flex-wrap: wrap; gap: 6px; }
-.btn-lembar {
-    flex: 1; min-width: 70px; padding: 8px 4px;
-    border: 2px solid var(--batas); border-radius: 8px;
-    background: var(--latar-kartu); font-size: 12px; font-weight: 600;
-    color: var(--teks-utama); cursor: pointer;
-}
-.btn-lembar.aktif { border-color: var(--hijau); background: rgba(16,185,129,0.15); color: var(--hijau); }
 
 .card { 
     background: var(--latar-kartu); border-radius: 12px;
-    padding: 14px; margin-bottom: 12px;
+    padding: 14px; margin-bottom:12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .card-atas { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; padding-bottom: 4px; border-bottom: 1px solid var(--batas); }
@@ -117,7 +115,7 @@ body {
 .card-bawah { font-size: 14px; font-weight: 500; color: var(--teks-utama); margin-bottom: 10px; }
 
 .baris-data { display: flex; padding: 2px 0; font-size: 14px; }
-.baris-data .label { width: 100px; font-weight: 500; color: var(--abu); flex-shrink: 0; }
+.baris-data .label { width: 120px; font-weight: 500; color: var(--abu); flex-shrink: 0; }
 .baris-data .titik { margin-right: 5px; color: var(--abu); }
 .baris-data .nilai { font-weight: 500; color: var(--teks-utama); flex: 1; word-break: break-word; }
 .baris-data .nilai.hijau { color: var(--hijau); font-weight: 700; }
@@ -146,8 +144,25 @@ body {
 .btn-pilih.sudah { background: rgba(16,185,129,0.2); color: var(--hijau); }
 .btn-pilih:active { transform: scale(0.95); }
 
-.paging { display: flex; justify-content: center; gap: 6px; margin: 16px 0; flex-wrap: wrap; }
-.btn-page { padding: 8px 10px; border-radius: 8px; border: none; background: var(--latar-kartu); color: var(--teks-utama); font-size: 12px; cursor: pointer; }
+/* === PERBAIKAN NAVIGASI HALAMAN - JELAS DI KEDUA MODE === */
+.paging { 
+    display: flex; justify-content: center; gap: 6px; margin: 16px 0; flex-wrap: wrap;
+    background: var(--nav-latar); padding: 10px; border-radius: 12px; border: 1px solid var(--nav-batas);
+}
+.btn-page { 
+    padding: 9px 12px; border-radius: 8px; border: 1px solid var(--nav-batas); 
+    background: var(--latar-kartu); color: var(--nav-teks); 
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-page:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-page:active { transform: scale(0.95); }
+#infoHal { 
+    padding: 8px 14px; font-weight: 700; font-size: 14px;
+    color: var(--hijau); background: rgba(16,185,129,0.12); border-radius: 8px;
+    border: 1px solid var(--hijau);
+}
+
 .memuat { text-align: center; padding: 40px 16px; color: var(--teks-kedua); font-size: 13px; }
 
 #halamanKeranjang { display: none; }
@@ -204,16 +219,6 @@ body {
     <div class="filter-box">
         <div class="filter-title">PENCARIAN</div>
         <input type="text" class="input-search" id="cari" placeholder="NIK, Kabupaten, Kecamatan, Desa..." oninput="terapkanFilter()">
-        
-        <div class="filter-title">PILIH DATA</div>
-        <div class="tombol-lembar">
-            <button class="btn-lembar aktif" onclick="gantiLembar('IUT_2017+')">IUT_2017+</button>
-            <button class="btn-lembar" onclick="gantiLembar('KPJ_TUA')">KPJ_TUA</button>
-            <button class="btn-lembar" onclick="gantiLembar('LASIK')">LASIK</button>
-            <button class="btn-lembar" onclick="gantiLembar('10/30%')">10/30%</button>
-            <button class="btn-lembar" onclick="gantiLembar('AKTIF')">AKTIF</button>
-            <button class="btn-lembar" onclick="gantiLembar('SEMUA')">SEMUA DATA</button>
-        </div>
     </div>
 
     <div id="daftarData"><div class="memuat">⏳ Sedang memuat data...</div></div>
@@ -221,7 +226,7 @@ body {
     <div class="paging">
         <button class="btn-page" onclick="gantiHalaman(1)">Pertama</button>
         <button class="btn-page" onclick="gantiHalaman(halSaatIni-1)" id="btnPrev" disabled>⬅</button>
-        <span id="infoHal" style="padding:6px 8px;">Hal 1</span>
+        <span id="infoHal">Hal 1</span>
         <button class="btn-page" onclick="gantiHalaman(halSaatIni+1)" id="btnNext" disabled>➡</button>
         <button class="btn-page" onclick="gantiHalaman(totalHal)">Terakhir</button>
     </div>
@@ -272,12 +277,11 @@ body {
 </div>
 
 <script>
-const SHEET_ID = '1qsjjECYmtpM3zY-lLmskvwkBPJhhkrGigPbotyiB62A';
-const API_KEY = 'AIzaSyAEWBSGVaul1WgTi088TP84EpzEVJPCj8I';
+// === KONFIGURASI PENGHUBUNG ===
+const URL_APPSCRIPT = 'https://script.google.com/macros/s/AKfycbwjv8k3ZEpzVM7ELHAnPA9AsglYc6leTh-2ZcZai3mBSQMIi38nqmq_xlZZnZvhnu0r/exec';
 const NOMOR_WA = '6282221559338';
-const DAFTAR_LEMBAR = ['IUT_2017+', 'KPJ_TUA', 'LASIK', '10/30%', 'AKTIF'];
+// ==============================
 
-let lembarAktif = 'IUT_2017+';
 let dataSemua = [];
 let dataFilter = [];
 let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
@@ -296,6 +300,7 @@ function toggleMode() {
     btnMode.textContent = aktif ? '☀️' : '🌙';
 }
 
+// === FUNGSI SENSOR ===
 function sensorNama(nama) {
     if (!nama) return '-';
     return nama.split(' ').map(kata => {
@@ -303,49 +308,52 @@ function sensorNama(nama) {
         return kata.substring(0, 2) + '*'.repeat(kata.length - 2);
     }).join(' ');
 }
-function ambilKPJUtuh(kpj) { return !kpj ? '-' : String(kpj); }
+
+// ✅ Sensor KPC: 2 depan + ****** + 2 belakang, banyak kode dipisah spasi/enter
+function sensorKPC(teks) {
+    if (!teks) return '-';
+    const pemisah = /[\s\n]+/; // spasi atau enter
+    const daftar = String(teks).split(pemisah).filter(k => k.trim());
+    const hasil = daftar.map(kode => {
+        const bersih = kode.trim();
+        if (bersih.length <= 4) return bersih;
+        return bersih.substring(0,2) + '********' + bersih.substring(bersih.length - 2);
+    });
+    return hasil.join(' ');
+}
+
+// ✅ Tanggal lahir: hanya ambil TAHUN, sisanya disensor
+function sensorTglLahir(tgl) {
+    if (!tgl) return '-';
+    const teks = String(tgl).trim();
+    const cocok = teks.match(/(19|20)\d{2}/); // cari tahun 1900-2099
+    if (cocok) return `****-**-${cocok[0]}`;
+    return '****-**-????';
+}
+
 function potongNIK(nik) { return !nik ? '-' : String(nik).trim().slice(0,6); }
 function angka(x) { return Number(String(x||0).replace(/[^0-9]/g,'')) || 0; }
 function uang(x) { return new Intl.NumberFormat('id-ID').format(angka(x)); }
 
-async function gantiLembar(namaLembar) {
-    lembarAktif = namaLembar;
-    document.querySelectorAll('.btn-lembar').forEach(b => {
-        b.classList.remove('aktif');
-        if (b.textContent.trim() === namaLembar) b.classList.add('aktif');
-    });
-    daftarData.innerHTML = `<div class="memuat">⏳ Memuat data ${namaLembar}...</div>`;
-    halSaatIni = 1;
-    await ambilDataLembar();
-}
-
 async function ambilDataLembar() {
     try {
-        dataSemua = [];
-        if (lembarAktif === 'SEMUA') {
-            for (const nama of DAFTAR_LEMBAR) {
-                const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(nama)}!A2:P?key=${API_KEY}`);
-                const json = await res.json();
-                if (res.ok && json.values) dataSemua.push(...json.values);
-            }
-        } else {
-            const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(lembarAktif)}!A2:P?key=${API_KEY}`);
-            const json = await res.json();
-            if (!res.ok || json.error) throw new Error(`Lembar "${lembarAktif}" tidak ditemukan!`);
-            dataSemua = json.values || [];
-        }
+        daftarData.innerHTML = `<div class="memuat">⏳ Sedang memuat data...</div>`;
+        const res = await fetch(URL_APPSCRIPT);
+        const json = await res.json();
+        if (json.error) throw new Error(json.error);
+        dataSemua = json;
         dataFilter = dataSemua;
         hitungInfo();
         totalHal = Math.ceil(dataFilter.length / batasHal);
         tampilData();
         updateJumlahKeranjang();
     } catch (err) {
-        daftarData.innerHTML = `<div class="memuat">${err.message}</div>`;
+        daftarData.innerHTML = `<div class="memuat">❌ Gagal memuat data: ${err.message}</div>`;
     }
 }
 
 function hitungInfo() {
-    const wilayah = new Set(dataFilter.map(b => `${b[6]||''} ${b[7]||''}`.trim()).filter(x => x));
+    const wilayah = new Set(dataFilter.map(b => `${b[9]||''} ${b[10]||''}`.trim()).filter(x => x));
     document.getElementById('jmlKab').textContent = wilayah.size;
     document.getElementById('jmlTotal').textContent = dataFilter.length;
 }
@@ -353,7 +361,7 @@ function hitungInfo() {
 function terapkanFilter() {
     const kata = cari.value.toLowerCase();
     dataFilter = dataSemua.filter(b => {
-        const teks = `${b[2]||''} ${b[6]||''} ${b[7]||''} ${b[8]||''}`.toLowerCase();
+        const teks = `${b[2]||''} ${b[9]||''} ${b[10]||''} ${b[11]||''}`.toLowerCase();
         return kata === '' || teks.includes(kata);
     });
     halSaatIni = 1;
@@ -362,32 +370,39 @@ function terapkanFilter() {
     tampilData();
 }
 
-// === FUNGSI KIRIM SATUAN SUDAH DIPERBAIKI JUDUL JADI ID ===
 function kirimSatuan(id) {
     const b = dataSemua.find(x => x[0] == id);
     if (!b) return alert('Data tidak ditemukan!');
 
-    const tglLahir = b[4] || '-';
+    const tglLahir = sensorTglLahir(b[4]);
     const jenisKelamin = b[5] || '';
     const tampilTglLahir = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-    const kab = b[6]||'-';
-    const kec = b[7]||'-';
-    const desa = b[8]||'-';
+    const kab = b[9]||'-';
+    const kec = b[10]||'-';
+    const kel = b[11]||'-';
+    const listKpcAsli = b[1]||'-'; // di pesan WA KPC TIDAK disensor
 
     let teks = `🩴🩴🩴 ID : ${id} 🩴🩴🩴
 
-${kab} ➤ ${kec} ➤ ${desa}
+${kab} ➤ ${kec} ➤ ${kel}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
 
-LIST KPJ : ${String(b[1]||'-').replaceAll(',','\n')}
+LIST KPJ : ${String(listKpcAsli).replaceAll(',','\n')}
 
-PT. : ${b[11]||'-'}
-IURAN TERAKHIR : ${b[12]||'-'}
-JUMLAH KARTU : ${b[13]||'-'}
-TOTAL SALDO    : Rp ${uang(b[9])}
+PT. : ${b[13]||'-'}
+IURAN TERAKHIR : ${b[14]||'-'}
+JUMLAH KARTU : ${b[15]||'-'}
+AKUMULASI SALDO : Rp ${uang(b[12])}
 
-==== JUAL LEPAS : Rp ${uang(b[14])} =====`;
+——————————————
+STATUS PENGKINIAN : ${b[17]||'-'}
+PESAN PENGKINIAN : ${b[18]||'-'}
+PESAN KLAIM : ${b[19]||'-'}
+KETERANGAN : ${b[20]||'-'}
+——————————————
+
+==== JUAL: Rp ${uang(b[16])} =====`;
 
     const tautanWA = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(teks)}`;
     window.open(tautanWA, '_blank', 'noopener,noreferrer');
@@ -405,19 +420,19 @@ function tampilData() {
         const id = b[0]||'-';
         const sudah = keranjang.includes(id);
         const namaDisensor = sensorNama(b[3]||'-');
-        const kab = b[6]||'-';
-        const kec = b[7]||'-';
-        const desa = b[8]||'-';
-        const tglLahir = b[4]||'-';
+        const kab = b[9]||'-';
+        const kec = b[10]||'-';
+        const kel = b[11]||'-';
+        const tglLahir = sensorTglLahir(b[4]);
         const jenisKelamin = b[5]||'';
         const tampilTglLengkap = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-        const listKpj = ambilKPJUtuh(b[1]||'-');
+        const listKpcSensor = sensorKPC(b[1]||'-');
         const nikPotong = potongNIK(b[2]||'-');
         
         daftarData.innerHTML += `
         <div class="card">
             <div class="card-atas"><div class="card-id">ID: ${id}</div></div>
-            <div class="card-bawah">${kab} ➤ ${kec} ➤ ${desa}</div>
+            <div class="card-bawah">${kab} ➤ ${kec} ➤ ${kel}</div>
             
             <div class="baris-data"><div class="label">NIK</div><div class="titik">:</div><div class="nilai">${nikPotong}</div></div>
             <div class="baris-data"><div class="label">Nama</div><div class="titik">:</div><div class="nilai">${namaDisensor}</div></div>
@@ -425,14 +440,23 @@ function tampilData() {
             
             <div class="jeda-kelompok"></div>
             
-            <div class="baris-data"><div class="label">List KPJ</div><div class="titik">:</div><div class="nilai">${listKpj}</div></div>
-            <div class="baris-data"><div class="label">PT</div><div class="titik">:</div><div class="nilai">${b[11]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Iuran Terakhir</div><div class="titik">:</div><div class="nilai">${b[12]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Jml Kartu</div><div class="titik">:</div><div class="nilai">${b[13]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Total Saldo</div><div class="titik">:</div><div class="nilai hijau">Rp ${uang(b[9])}</div></div>
+            <div class="baris-data"><div class="label">List KPJ</div><div class="titik">:</div><div class="nilai">${listKpcSensor}</div></div>
+            <div class="baris-data"><div class="label">PT</div><div class="titik">:</div><div class="nilai">${b[13]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Iuran Terakhir</div><div class="titik">:</div><div class="nilai">${b[14]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Jml Kartu</div><div class="titik">:</div><div class="nilai">${b[15]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Akumulasi Saldo</div><div class="titik">:</div><div class="nilai hijau">Rp ${uang(b[12])}</div></div>
+            
+            <div class="jeda-kelompok"></div>
+            
+            <div class="baris-data"><div class="label">Status Pengkinian</div><div class="titik">:</div><div class="nilai">${b[17]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Pesan Pengkinian</div><div class="titik">:</div><div class="nilai">${b[18]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Pesan Klaim</div><div class="titik">:</div><div class="nilai">${b[19]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Keterangan</div><div class="titik">:</div><div class="nilai">${b[20]||'-'}</div></div>
+            
+            <div class="jeda-kelompok"></div>
             
             <div class="card-footer">
-                <div class="harga-lepas">HARGA: Rp ${uang(b[14])}</div>
+                <div class="harga-lepas">JUAL: Rp ${uang(b[16])}</div>
                 <button class="btn-kirim-satuan" onclick="kirimSatuan('${id}')">📩 Kirim WA</button>
                 <button class="btn-pilih ${sudah?'sudah':''}" onclick="ubahKeranjang('${id}')">${sudah?'✓':'🛒'}</button>
             </div>
@@ -459,24 +483,31 @@ function tampilIsiKeranjang() {
     isiKeranjang.innerHTML=''; let total=0;
     keranjang.forEach(id=>{
         const b = dataSemua.find(x=>x[0]==id); if(!b) return;
-        total += angka(b[14]);
-        const kab = b[6]||'-'; const kec = b[7]||'-'; const desa = b[8]||'-';
-        const tglLahir = b[4]||'-'; const jenisKelamin = b[5]||'';
+        total += angka(b[16]);
+        const kab = b[9]||'-'; const kec = b[10]||'-'; const kel = b[11]||'-';
+        const tglLahir = sensorTglLahir(b[4]); const jenisKelamin = b[5]||'';
         const tampilTglLengkap = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
+        const listKpcSensor = sensorKPC(b[1]||'-');
         isiKeranjang.innerHTML += `
         <div class="item-keranjang">
             <div class="atas-item"><div class="id-item">ID: ${id}</div></div>
-            <div class="lokasi-item">${kab} ➤ ${kec} ➤ ${desa}</div>
+            <div class="lokasi-item">${kab} ➤ ${kec} ➤ ${kel}</div>
             <div class="baris-data"><div class="label">NIK</div><div class="titik">:</div><div class="nilai">${potongNIK(b[2]||'-')}</div></div>
             <div class="baris-data"><div class="label">Nama</div><div class="titik">:</div><div class="nilai">${sensorNama(b[3]||'-')}</div></div>
             <div class="baris-data"><div class="label">Tgl Lahir</div><div class="titik">:</div><div class="nilai">${tampilTglLengkap}</div></div>
             <div class="jeda-kelompok"></div>
-            <div class="baris-data"><div class="label">List KPJ</div><div class="titik">:</div><div class="nilai">${ambilKPJUtuh(b[1]||'-')}</div></div>
-            <div class="baris-data"><div class="label">PT</div><div class="titik">:</div><div class="nilai">${b[11]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Iuran Terakhir</div><div class="titik">:</div><div class="nilai">${b[12]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Jml Kartu</div><div class="titik">:</div><div class="nilai">${b[13]||'-'}</div></div>
-            <div class="baris-data"><div class="label">Total Saldo</div><div class="titik">:</div><div class="nilai hijau">Rp ${uang(b[9])}</div></div>
-            <div class="card-footer"><div class="harga-lepas">HARGA: Rp ${uang(b[14])}</div><button class="btn-pilih" onclick="hapusSatuItem('${id}')">🗑️ Hapus</button></div>
+            <div class="baris-data"><div class="label">List KPJ</div><div class="titik">:</div><div class="nilai">${listKpcSensor}</div></div>
+            <div class="baris-data"><div class="label">PT</div><div class="titik">:</div><div class="nilai">${b[13]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Iuran Terakhir</div><div class="titik">:</div><div class="nilai">${b[14]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Jml Kartu</div><div class="titik">:</div><div class="nilai">${b[15]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Akumulasi Saldo</div><div class="titik">:</div><div class="nilai hijau">Rp ${uang(b[12])}</div></div>
+            <div class="jeda-kelompok"></div>
+            <div class="baris-data"><div class="label">Status Pengkinian</div><div class="titik">:</div><div class="nilai">${b[17]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Pesan Pengkinian</div><div class="titik">:</div><div class="nilai">${b[18]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Pesan Klaim</div><div class="titik">:</div><div class="nilai">${b[19]||'-'}</div></div>
+            <div class="baris-data"><div class="label">Keterangan</div><div class="titik">:</div><div class="nilai">${b[20]||'-'}</div></div>
+            <div class="jeda-kelompok"></div>
+            <div class="card-footer"><div class="harga-lepas">JUAL: Rp ${uang(b[16])}</div><button class="btn-pilih" onclick="hapusSatuItem('${id}')">🗑️ Hapus</button></div>
         </div>`;
     });
     totalRp.textContent = `Rp ${uang(total)}`;
@@ -490,25 +521,33 @@ function lanjutKirimWA() {
     tutupSyarat(); let teks = ''; let total = 0;
     keranjang.forEach((id, nomor) => {
         const b = dataSemua.find(x=>x[0]==id); if(!b) return;
-        total += angka(b[14]);
-        const tglLahir = b[4]||'-'; const jenisKelamin = b[5]||'';
+        total += angka(b[16]);
+        const tglLahir = sensorTglLahir(b[4]); const jenisKelamin = b[5]||'';
         const tampilTglLahir = jenisKelamin ? `${tglLahir} | ${jenisKelamin}` : tglLahir;
-        const kab = b[6]||'-'; const kec = b[7]||'-'; const desa = b[8]||'-';
+        const kab = b[9]||'-'; const kec = b[10]||'-'; const kel = b[11]||'-';
+        const listKpcAsli = b[1]||'-'; // di pesan WA KPC TIDAK disensor
 
         teks += `🩴🩴🩴 ${nomor+1} 🩴🩴🩴
 
-${kab} ➤ ${kec} ➤ ${desa}
+${kab} ➤ ${kec} ➤ ${kel}
 
 NIK  : ${potongNIK(b[2]||'-')} | ${tampilTglLahir}
 
-LIST KPJ : ${String(b[1]||'-').replaceAll(',','\n')}
+LIST KPJ : ${String(listKpcAsli).replaceAll(',','\n')}
 
-PT. : ${b[11]||'-'}
-IURAN TERAKHIR : ${b[12]||'-'}
-JUMLAH KARTU : ${b[13]||'-'}
-TOTAL SALDO    : Rp ${uang(b[9])}
+PT. : ${b[13]||'-'}
+IURAN TERAKHIR : ${b[14]||'-'}
+JUMLAH KARTU : ${b[15]||'-'}
+AKUMULASI SALDO : Rp ${uang(b[12])}
 
-==== JUAL LEPAS : Rp ${uang(b[14])} =====
+——————————————
+STATUS PENGKINIAN : ${b[17]||'-'}
+PESAN PENGKINIAN : ${b[18]||'-'}
+PESAN KLAIM : ${b[19]||'-'}
+KETERANGAN : ${b[20]||'-'}
+——————————————
+
+==== JUAL: Rp ${uang(b[16])} =====
 
 
 `;
@@ -517,7 +556,7 @@ TOTAL SALDO    : Rp ${uang(b[9])}
     window.open(`https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(teks)}`, '_blank');
 }
 
-window.onload = () => { cekModeSimpan(); gantiLembar('IUT_2017+'); };
+window.onload = () => { cekModeSimpan(); ambilDataLembar(); };
 </script>
 </body>
 </html>
